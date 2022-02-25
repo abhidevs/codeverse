@@ -1,12 +1,28 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { BsGraphUp } from 'react-icons/bs'
 
 const Navbar = () => {
+  const [colorChange, setColorchange] = useState(false)
+  const changeNavbarColor = () => {
+    if (window.scrollY >= 80) {
+      setColorchange(true)
+    } else {
+      setColorchange(false)
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', changeNavbarColor)
+  }, [])
+
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between  py-3 bg-[#232226] ">
+      <nav
+        className={`fixed flex flex-wrap items-center justify-between  py-3  ${
+          colorChange ? 'bg-[#070808f1]' : 'bg-[#232226]'
+        } w-full`}
+      >
         <div className="flex justify-between w-full container px-28">
           <div className="text-2xl font-medium h-full p-1 w-48">
             <span className="text-[#0061FF]">Code</span>

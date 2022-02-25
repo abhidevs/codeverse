@@ -1,6 +1,6 @@
-import Head from "next/head";
-import { AiFillCodeSandboxSquare } from "react-icons/ai"
-import Navbar from "../components/Navbar";
+import Head from 'next/head'
+import { AiFillCodeSandboxSquare } from 'react-icons/ai'
+import Navbar from '../components/Navbar'
 
 export default function Home() {
   return (
@@ -13,12 +13,11 @@ export default function Home() {
 
       <main className="w-full h-full">
         <Navbar />
-
         <h1 className="text-3xl font-bold flex justify-center">
-          <AiFillCodeSandboxSquare /> Hello Codeverse Devs! <AiFillCodeSandboxSquare />
+          <AiFillCodeSandboxSquare /> Hello Codeverse Devs!{' '}
+          <AiFillCodeSandboxSquare />
         </h1>
-        
       </main>
     </div>
-  );
+  )
 }
