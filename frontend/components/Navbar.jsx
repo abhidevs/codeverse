@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import React from 'react'
-import { FaSearch, FaPlus } from 'react-icons/fa'
-import { BsGraphUp } from 'react-icons/bs'
+import Image from "next/image";
+import React from "react";
+import { FaSearch, FaPlus } from "react-icons/fa";
+import { BsGraphUp } from "react-icons/bs";
 
 const Navbar = () => {
   return (
@@ -35,14 +35,14 @@ const Navbar = () => {
               src="/profileimage.jpg"
               alt="profile image"
               width={40}
-              height={20}
+              height={40}
               className="object-cover rounded-full"
             />
           </div>
         </div>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
