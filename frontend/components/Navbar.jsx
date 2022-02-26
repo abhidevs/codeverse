@@ -1,13 +1,28 @@
-import Image from "next/image";
-import React from "react";
-import { PlusIcon, TrendingUpIcon, SearchIcon } from "@heroicons/react/outline";
-import { FaSearch } from "react-icons/fa";
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { PlusIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import { FaSearch } from 'react-icons/fa'
 
 const Navbar = () => {
+  const [colorChange, setColorchange] = useState(false)
+  const changeNavbarColor = () => {
+    if (window.scrollY >= 80) {
+      setColorchange(true)
+    } else {
+      setColorchange(false)
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', changeNavbarColor)
+  }, [])
   return (
     <>
-      <nav className="relative w-screen flex flex-wrap items-center justify-center py-3 px-28 bg-[#232226]">
-        <div className="flex justify-between items-center w-full container p-0">
+      <nav
+        className={`fixed flex flex-wrap items-center justify-between py-3  ${
+          colorChange ? 'bg-[#070808f1] ' : 'bg-[#232226]'
+        } w-full z-[1000]`}
+      >
+        <div className="flex justify-between items-center w-full container px-18">
           <div className="text-2xl font-medium h-full p-1 w-48 cursor-pointer">
             <span className="text-skin-base">Code</span>
             <span className="text-skin-inverted">Verse</span>
@@ -44,7 +59,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
