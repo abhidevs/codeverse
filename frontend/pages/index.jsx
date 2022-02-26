@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import { AiFillCodeSandboxSquare } from 'react-icons/ai'
 import Navbar from '../components/Navbar'
+import Post from '../components/Post'
+import Sidebar from '../components/Sidebar'
+import 'swiper/css/bundle'
 
 export default function Home() {
   return (
@@ -11,12 +14,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full h-full">
+      <main className="w-full h-full bg-skin-backgroud text-skin-base ">
         <Navbar />
-        <h1 className="text-3xl font-bold flex justify-center">
-          <AiFillCodeSandboxSquare /> Hello Codeverse Devs!{' '}
-          <AiFillCodeSandboxSquare />
-        </h1>
+        <div className="container pt-20">
+          <Sidebar />
+          <Post />
+        </div>
       </main>
     </div>
   )
