@@ -5,22 +5,11 @@ const userData = [
         username: '@bisu03',
         profile: '/profile2.jpg',
         description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-        postImage: [
-            {
-                id: 1,
-                image: '/image1.jpg'
-            },
-            {
-                id: 2,
-                image: '/image2.jpg'
-            },
-            {
-                id: 3,
-                image: '/image2.jpg'
-            }
-        ],
+        postImage: '/image1.jpg',
         likes: 280,
-        likedBy: '@elon'
+        likedBy: '@elon',
+        likdeProfile:"/profile1.jpg",
+        active:"true"
 
     },
     {
@@ -29,18 +18,12 @@ const userData = [
         username: '@avhik03',
         profile: '/profile1.jpg',
         description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-        postImage: [
-            {
-                id: 1,
-                image: '/image4.jpg'
-            },
-            {
-                id: 2,
-                image: '/image6.jpg'
-            },
-        ],
+        postImage: '/image4.jpg',
+
         likes: 250,
-        likedBy: '@sundar'
+        likedBy: '@sundar',
+        likdeProfile:"/profile4.jpg",
+        active:"false"
     },
     {
         id: 3,
@@ -48,14 +31,11 @@ const userData = [
         username: '@rabbil',
         profile: '/profile3.jpg',
         description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-        postImage: [
-            {
-                id: 1,
-                image: '/image2.jpg'
-            }
-        ],
+        postImage: '/image2.jpg',
         likes: 100,
-        likedBy: '@mathew'
+        likedBy: '@mathew',
+        likdeProfile:"/profile2.jpg",
+        active:"false"
     },
     {
         id: 4,
@@ -63,22 +43,11 @@ const userData = [
         username: '@soumen',
         profile: '/profile4.jpg',
         description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-        postImage: [
-            {
-                id: 1,
-                image: '/image1.jpg'
-            },
-            {
-                id: 2,
-                image: '/image7.jpg'
-            },
-            {
-                id: 3,
-                image: '/image2.jpg'
-            },
-        ],
+        postImage: '/image7.jpg',
         likes: 500,
-        likedBy: '@jeff'
+        likedBy: '@jeff',
+        likdeProfile:"/profile5.jpg",
+        active:"true"
     },
     {
         id: 5,
@@ -86,22 +55,11 @@ const userData = [
         username: '@soumen2',
         profile: '/profile5.jpg',
         description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-        postImage: [
-            {
-                id: 1,
-                image: '/image4.jpg'
-            },
-            {
-                id: 2,
-                image: '/image6.jpg'
-            },
-            {
-                id: 3,
-                image: '/image1.jpg'
-            },
-        ],
+        postImage: '/image4.jpg',
         likes: 300,
-        likedBy: '@parag'
+        likedBy: '@parag',
+        likdeProfile:"/profile4.jpg",
+        active:"false"
     },
 ]
 export default userData
