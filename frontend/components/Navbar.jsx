@@ -19,8 +19,8 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed flex flex-wrap items-center justify-between py-3  ${
-          colorChange ? 'bg-[#070808f1] ' : 'bg-[#232226]'
-        } w-full z-[1000]`}
+          colorChange ? 'bg-[#070808f1] ' : 'bg-skin-color4'
+        } w-full z-[1000] `}
       >
         <div className="flex justify-between items-center w-full container px-18">
           <div className="text-2xl font-medium h-full p-1 w-48 cursor-pointer">
