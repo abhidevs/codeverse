@@ -32,7 +32,7 @@ module.exports = {
       },
       borderColor: {
         skin: {
-          primary: "var(--color-primary)",  
+          primary: "var(--color-primary)",
           color7: "var(--color7)",
         },
       },

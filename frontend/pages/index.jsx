@@ -6,7 +6,8 @@ import Sidebar from '../components/Sidebar'
 import 'swiper/css/bundle'
 import userData from '../data/data'
 import CreatePost from '../components/CreatePost'
-import FollowPeople from '../components/FollowPeople'
+import PeopleYouFollow from '../components/PeopleYouFollow'
+import PeopleToFolllow from '../components/PeopleToFolllow'
 
 export default function Home() {
   return (
@@ -21,7 +22,10 @@ export default function Home() {
         <Navbar />
         <div className="container pt-20">
           <Sidebar />
-          <FollowPeople />
+          <div className="absolute right-24 w-[260px] h-auto ">
+            <PeopleYouFollow />
+            <PeopleToFolllow />
+          </div>
           <CreatePost />
           {userData.map((data, index) => (
             <Post

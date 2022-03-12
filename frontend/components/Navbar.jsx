@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { PlusIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import { LogoutIcon, PlusIcon, TrendingUpIcon } from '@heroicons/react/outline'
 import { FaSearch } from 'react-icons/fa'
+import SidebarLink from './SidebarLink'
+import Link from 'next/link'
 
 const Navbar = () => {
+  const [show, setShow] = useState(true)
   const [colorChange, setColorchange] = useState(false)
   const changeNavbarColor = () => {
     if (window.scrollY >= 80) {
@@ -15,6 +18,8 @@ const Navbar = () => {
   useEffect(() => {
     window.addEventListener('scroll', changeNavbarColor)
   }, [])
+
+  const user = false
   return (
     <>
       <nav
@@ -27,34 +32,64 @@ const Navbar = () => {
             <span className="text-skin-base">Code</span>
             <span className="text-skin-inverted">Verse</span>
           </div>
-
-          <div className="flex justify-center border-none bg-skin-color7 w-auto rounded-full p-1">
-            <div className="content-center grid text-skin-base bg-skin-color7 ml-3 p-2">
-              <FaSearch />
-            </div>
-            <input
-              type="text"
-              placeholder="Search for posts, people or topics ..."
-              className=" mx-3 w-96  text-skin-base bg-skin-color7 border-none outline-none"
-            />
-          </div>
+          {user ? (
+            <>
+              <div className="flex justify-center border-none bg-skin-color7 w-auto rounded-full p-1">
+                <div className="content-center grid text-skin-base bg-skin-color7 ml-3 p-2">
+                  <FaSearch />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search for posts, people or topics ..."
+                  className=" mx-3 w-96  text-skin-base bg-skin-color7 border-none outline-none"
+                />
+              </div>
+            </>
+          ) : null}
 
           <div className="flex justify-end items-center w-48 space-x-8">
-            <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
-              <PlusIcon className="h-5" />
-            </button>
-            <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
-              <TrendingUpIcon className="h-5" />
-            </button>
-            <div className="flex items-center justify-center w-[44px] h-[44px] cursor-pointer">
-              <Image
-                src="/dummyProfileImg.jpg"
-                alt="profile image"
-                width={180}
-                height={180}
-                className="object-cover rounded-full"
-              />
-            </div>
+            {user ? (
+              <>
+                <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                  <PlusIcon className="h-5" />
+                </button>
+                <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                  <TrendingUpIcon className="h-5" />
+                </button>
+                <div
+                  className="flex items-center justify-center w-[44px] h-[44px] cursor-pointer"
+                  onClick={() => setShow(show)}
+                >
+                  <Image
+                    src="/dummyProfileImg.jpg"
+                    alt="profile image"
+                    width={180}
+                    height={180}
+                    className="object-cover rounded-full"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <button className="py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
+                    <a> login</a>
+                  </button>
+                </Link>
+                <Link href="/register">
+                  <button className="py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
+                    <a> Signup</a>
+                  </button>
+                </Link>
+              </>
+            )}
+            {!show ? (
+              <div
+                className={`absolute h-autow-40 bg-skin-color7 top-16 rounded-2xl`}
+              >
+                <SidebarLink text="Logout" icon={LogoutIcon} />
+              </div>
+            ) : null}
           </div>
         </div>
       </nav>

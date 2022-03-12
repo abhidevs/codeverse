@@ -2,10 +2,10 @@ import React from 'react'
 import userData from '../data/data'
 import Peoples from './Peoples'
 
-const FollowPeople = () => {
+const PeopleYouFollow = () => {
   return (
     <>
-      <div className="absolute right-24 w-[260px] h-auto ">
+      <div >
         <div className="my-2 bg-skin-color4 rounded-3xl p">
           <h3 className="p-4">people you follow</h3>
           {userData.map((data, ind) => (
@@ -28,4 +28,4 @@ const FollowPeople = () => {
   )
 }
 
-export default FollowPeople
+export default PeopleYouFollow

@@ -18,11 +18,12 @@ const Post = ({
   swipeImage,
   profileImage,
 }) => {
+  const handleClick = () => {}
   return (
     <>
-      <div className=" justify-center relative flex w-full mb-4 ">
+      <div className=" justify-center relative flex w-full h-auto mb-4 ">
         <div className="rounded-3xl bg-skin-color4  h-[auto] w-[770px] sm:m-0 lg:m-2">
-          <div className="flex justify-between w-full px-6 py-4 ">
+          <div className="flex justify-between w-full px-6 pt-6 ">
             <div className="flex w-auto max-w-[280px] justify-between ">
               <div className="flex items-center justify-center w-14 h-14 p-0 cursor-pointer">
                 <Image
@@ -39,12 +40,17 @@ const Post = ({
                 </p>
               </div>
             </div>
-            <button className="rounded-full w-7 grid place-items-center">
+
+            <button
+              className="rounded-full w-7 grid place-items-centre"
+              onClick={handleClick}
+            >
               <BsThreeDots />
             </button>
+            
           </div>
-
-          <div className="flex justify-center w-full text-left px-6  ">
+      
+          <div className="flex justify-center w-full text-left px-6 py-4 ">
             <p className="text-sm">{description}</p>
           </div>
 
