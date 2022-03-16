@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
 import { BsThreeDots } from 'react-icons/bs'
-import { ChatIcon, HeartIcon, ShareIcon } from '@heroicons/react/outline'
+import { ChatIcon, ShareIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -17,6 +17,7 @@ const Post = ({
   likedProfile,
   swipeImage,
   profileImage,
+  liked,
 }) => {
   const handleClick = () => {}
   return (
@@ -47,9 +48,8 @@ const Post = ({
             >
               <BsThreeDots />
             </button>
-            
           </div>
-      
+
           <div className="flex justify-center w-full text-left px-6 py-4 ">
             <p className="text-sm">{description}</p>
           </div>
@@ -77,7 +77,11 @@ const Post = ({
 
           <div className="flex flex-wrap   w-full px-6 py-2 justify-between items-center">
             <div className="flex  items-center w-[110px] h-full justify-between py-1 mb-2">
-              <HeartIcon className="h-[25px]" />
+              {liked == true ? (
+                <AiFillHeart className={`h-[25px] w-[25px] text-red-600 `} />
+              ) : (
+                <AiOutlineHeart className={`h-[25px] w-[25px] } `} />
+              )}
               <ChatIcon className="h-[25px]" />
               <ShareIcon className="h-[25px]" />
             </div>

@@ -4,8 +4,8 @@ import Peoples from './Peoples'
 
 const PeopleToFolllow = () => {
   return (
-    <div>
-      <div className="my-2 bg-skin-color4 rounded-3xl p">
+    <>
+      <div className="my-2 bg-skin-color4 rounded-3xl hidden lg:block">
         <h3 className="p-4">people you follow</h3>
         {userData.map((data, ind) => (
           <Peoples
@@ -22,7 +22,7 @@ const PeopleToFolllow = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

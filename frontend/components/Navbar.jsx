@@ -19,7 +19,7 @@ const Navbar = () => {
     window.addEventListener('scroll', changeNavbarColor)
   }, [])
 
-  const user = false
+  const user = true
   return (
     <>
       <nav
@@ -34,14 +34,14 @@ const Navbar = () => {
           </div>
           {user ? (
             <>
-              <div className="flex justify-center border-none bg-skin-color7 w-auto rounded-full p-1">
+              <div className="hidden justify-center border-none bg-skin-color7 w-auto rounded-full p-1">
                 <div className="content-center grid text-skin-base bg-skin-color7 ml-3 p-2">
                   <FaSearch />
                 </div>
                 <input
                   type="text"
                   placeholder="Search for posts, people or topics ..."
-                  className=" mx-3 w-96  text-skin-base bg-skin-color7 border-none outline-none"
+                  className=" mx-3 w-28 lg:w-96  text-skin-base bg-skin-color7 border-none outline-none"
                 />
               </div>
             </>
@@ -50,15 +50,15 @@ const Navbar = () => {
           <div className="flex justify-end items-center w-48 space-x-8">
             {user ? (
               <>
-                <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                <button className="hidden rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] lg:flex items-center justify-center">
                   <PlusIcon className="h-5" />
                 </button>
-                <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] hidden lg:flex items-center justify-center">
                   <TrendingUpIcon className="h-5" />
                 </button>
                 <div
                   className="flex items-center justify-center w-[44px] h-[44px] cursor-pointer"
-                  onClick={() => setShow(show)}
+                  onClick={() => setShow(!show)}
                 >
                   <Image
                     src="/dummyProfileImg.jpg"
@@ -72,13 +72,13 @@ const Navbar = () => {
             ) : (
               <>
                 <Link href="/login">
-                  <button className="py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
+                  <button className=" md:block py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
                     <a> login</a>
                   </button>
                 </Link>
                 <Link href="/register">
-                  <button className="py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
-                    <a> Signup</a>
+                  <button className="hidden lg:block py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
+                    <a>Register</a>
                   </button>
                 </Link>
               </>
@@ -87,7 +87,15 @@ const Navbar = () => {
               <div
                 className={`absolute h-autow-40 bg-skin-color7 top-16 rounded-2xl`}
               >
-                <SidebarLink text="Logout" icon={LogoutIcon} />
+                <div className="lg:hidden flex justify-evenly my-2">
+                <button className="rounded-full bg-skin-color4 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                  <PlusIcon className="h-5" />
+                </button>
+                <button className="rounded-full bg-skin-color4 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                  <TrendingUpIcon className="h-5" />
+                </button>
+                </div>
+                <SidebarLink text="Logout" icon={LogoutIcon}  />
               </div>
             ) : null}
           </div>

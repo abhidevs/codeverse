@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { AiFillCodeSandboxSquare } from 'react-icons/ai'
 import Navbar from '../components/Navbar'
 import Post from '../components/Post'
 import Sidebar from '../components/Sidebar'
@@ -10,6 +9,7 @@ import PeopleYouFollow from '../components/PeopleYouFollow'
 import PeopleToFolllow from '../components/PeopleToFolllow'
 
 export default function Home() {
+  
   return (
     <div>
       <Head>
@@ -33,6 +33,7 @@ export default function Home() {
               name={data.name}
               username={data.username}
               description={data.description}
+              liked={data.liked}
               likedBy={data.likedBy}
               likes={data.likes}
               likedProfile={data.likdeProfile}
