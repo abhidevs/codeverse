@@ -1,16 +1,16 @@
 import {
-  ChevronRightIcon,
   EmojiHappyIcon,
   PhotographIcon,
   PlayIcon,
   VideoCameraIcon,
-  XIcon,
 } from '@heroicons/react/outline'
-
+import { AiOutlineSend } from 'react-icons/ai'
+import { FaRegKeyboard } from 'react-icons/fa'
 import Image from 'next/image'
 import { useState } from 'react'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
+
 
 const CreatePost = () => {
   const [input, setInput] = useState('')
@@ -26,7 +26,7 @@ const CreatePost = () => {
   return (
     <>
       <div className=" justify-center relative flex w-full">
-        <div className="rounded-3xl bg-skin-color4  h-auto w-[770px] sm:m-0 lg:m-2">
+        <div className="lg:rounded-3xl md:rounded-3xl bg-skin-color4  h-auto w-[770px] mb-2 lg:m-2">
           <div className="flex w-full px-6 py-4 ">
             <div className="flex items-center justify-center w-14 h-14 p-0 cursor-pointer mr-2">
               <Image
@@ -45,7 +45,7 @@ const CreatePost = () => {
                 block
                 w-full
                 px-3
-                py-1.5
+                py-1 mt-2.5
                 text-base
                 transition
                 ease-in-out
@@ -56,35 +56,48 @@ const CreatePost = () => {
                 onChange={(e) => setInput(e.target.value)}
               ></textarea>
 
-              <div className="flex justify-between my-2 flex-wrap">
-                <button
-                  className="w-[26px]"
-                  onClick={() => setShowEmojis(!showEmojis)}
-                >
-                  {!showEmojis ? <EmojiHappyIcon /> : <XIcon />}
-                </button>
-                <button className="w-[120px] py-1  flex justify-center bg-skin-primary rounded-[8px]">
-                  <PhotographIcon className="w-[24px] mr-1" />
+              <div className="flex justify-between my-2 flex-wrap w-full">
+                <div className="flex lg:w-auto w-full justify-center flex-col">
+                  <button
+                    className="w-[26px]"
+                    onClick={() => setShowEmojis(!showEmojis)}
+                  >
+                    {!showEmojis ? <EmojiHappyIcon /> : <FaRegKeyboard className=' w-[26px] h-[26px]' />}
+                  </button>
+                  {showEmojis && (
+                    <Picker
+                      darkMode="true"
+                      onSelect={addEmoji}
+                      theme={'dark'}
+                      style={{
+                        width: '100%',
+                        background: '#232226',
+                        border: 'none',
+                      }}
+                    />
+                  )}
+                </div>
+
+                <button className="w-[120px] py-1 my-2 flex justify-center bg-skin-primary rounded-[8px]">
+                  <PhotographIcon className="w-[24px] mr-1 " />
                   Photo
                 </button>
-                {showEmojis && (
-                  <div className="my-2 w-full">
-                    <Picker onSelect={addEmoji} style={{ width: '100%', background: 'dark' }} />
-                  </div>
-                )}
-                <button className="w-[120px] py-1  flex justify-center bg-skin-primary rounded-[8px]">
+                <button className="w-[120px] py-1 my-2 flex justify-center bg-skin-primary rounded-[8px]">
                   <VideoCameraIcon className="w-[24px] mr-1" />
                   Video
                 </button>
-                <button className="w-[120px] py-1  flex justify-center bg-skin-primary rounded-[8px]">
+
+                <button className="w-[120px] py-1 my-2  flex justify-center bg-skin-primary rounded-[8px]">
                   <PlayIcon className="w-[24px] mr-1" />
                   Gif
                 </button>
-                <button className="w-[120px] py-1  flex justify-center bg-skin-primary rounded-[8px]">
+
+                <button className="w-[120px] py-1 my-2  flex justify-center bg-skin-primary rounded-[8px]">
                   Post
-                  <ChevronRightIcon className="w-[24px] ml-1" />
+                  <AiOutlineSend className="w-[24px]  h-auto   ml-1" />
                 </button>
               </div>
+              
             </div>
           </div>
         </div>

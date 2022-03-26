@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import { AiFillCodeSandboxSquare } from 'react-icons/ai'
 import Navbar from '../components/Navbar'
 import Post from '../components/Post'
 import Sidebar from '../components/Sidebar'
 import 'swiper/css/bundle'
 import userData from '../data/data'
 import CreatePost from '../components/CreatePost'
-import FollowPeople from '../components/FollowPeople'
+import PeopleYouFollow from '../components/PeopleYouFollow'
+import PeopleToFolllow from '../components/PeopleToFolllow'
 
 export default function Home() {
   return (
@@ -17,11 +17,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full h-full bg-skin-backgroud text-skin-base ">
+      <main className="w-auto h-full bg-skin-backgroud pb-1 text-skin-base ">
         <Navbar />
-        <div className="container pt-20">
+        <div className="lg:container  md:container pt-20">
           <Sidebar />
-          <FollowPeople />
+          <div className="absolute right-24 w-[260px] h-auto ">
+            <PeopleYouFollow />
+            <PeopleToFolllow />
+          </div>
           <CreatePost />
           {userData.map((data, index) => (
             <Post
@@ -29,6 +32,7 @@ export default function Home() {
               name={data.name}
               username={data.username}
               description={data.description}
+              liked={data.liked}
               likedBy={data.likedBy}
               likes={data.likes}
               likedProfile={data.likdeProfile}
