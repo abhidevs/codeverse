@@ -24,7 +24,7 @@ const Sidebar = () => {
         </div>
         <div className="flex flex-col items-start justify-center space-y-[7px] text-base cursor-pointer">
           <h6 className="text-md font-[500] leading-4">John Doe</h6>
-          <p className="text-[13px] leading-4">@johndoe</p>
+          <p className="text-[13px] leading-4 text-skin-muted">@johndoe</p>
         </div>
       </div>
 
