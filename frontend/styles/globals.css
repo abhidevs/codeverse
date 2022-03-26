@@ -24,6 +24,16 @@ a {
   .hoverAnimation {
     @apply hover:cursor-pointer transition duration-200 ease-out;
   }
+
+  .light-ray {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.3) -50%,
+      rgba(255, 255, 255, 0) 90%
+    );
+    clip-path: polygon(5% 100%, 25% 0px, 75% 0px, 95% 100%);
+    pointer-events: none;
+  }
 }
 
 @layer base {

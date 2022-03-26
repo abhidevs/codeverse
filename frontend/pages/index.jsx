@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { AiFillCodeSandboxSquare } from "react-icons/ai";
+import BottomNavbar from "../components/BottomNavbar";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
@@ -21,6 +22,8 @@ export default function Home() {
             <AiFillCodeSandboxSquare /> Hello Codeverse Devs!{" "}
             <AiFillCodeSandboxSquare />
           </h1>
+
+          <BottomNavbar />
         </div>
       </main>
     </div>
