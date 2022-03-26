@@ -27,7 +27,7 @@ const Navbar = () => {
           colorChange ? 'bg-[#232226da] ' : 'bg-skin-color4'
         } w-full z-[1000] `}
       >
-        <div className="flex justify-between items-center w-full container px-18">
+        <div className="flex justify-between items-center w-full container mx-auto px-18">
           <div className="text-2xl font-medium h-full p-1 w-48 cursor-pointer">
             <span className="text-skin-base">Code</span>
             <span className="text-skin-inverted">Verse</span>

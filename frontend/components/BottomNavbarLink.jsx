@@ -1,14 +1,17 @@
+import Link from "next/link";
 import React from "react";
 
 const BottomNavbarLink = ({ icon: Icon, link, active }) => {
   return (
     <li className="h-full flex justify-center items-center list-none relative">
-      <a
-        className={`cursor-pointer transition-opacity duration-100 ease-linear
-      ${active ? "opacity-100" : "opacity-40"}`}
-      >
-        <Icon className="h-6" />
-      </a>
+      <Link href={link || "#"}>
+        <a
+          className={`cursor-pointer transition-opacity duration-100 ease-linear
+        ${active ? "opacity-100" : "opacity-40"}`}
+        >
+          <Icon className="h-6" />
+        </a>
+      </Link>
 
       {active && (
         <div className="absolute left-0 top-0 w-full flex justify-center">

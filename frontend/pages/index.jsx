@@ -1,13 +1,13 @@
-import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
+import Head from "next/head";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import BottomNavbar from "../components/BottomNavbar";
-import Post from '../components/Post'
-import CreatePost from '../components/CreatePost'
-import PeopleYouFollow from '../components/PeopleYouFollow'
-import PeopleToFolllow from '../components/PeopleToFolllow'
-import 'swiper/css/bundle'
-import userData from '../data/data'
+import Post from "../components/Post";
+import CreatePost from "../components/CreatePost";
+import PeopleYouFollow from "../components/PeopleYouFollow";
+import PeopleToFolllow from "../components/PeopleToFolllow";
+import "swiper/css/bundle";
+import userData from "../data/data";
 
 export default function Home() {
   return (
@@ -18,9 +18,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-auto h-full bg-skin-backgroud pb-16 text-skin-base ">
+      <main className="w-full h-full bg-skin-backgroud pb-16 text-skin-base">
         <Navbar />
-        <div className="lg:container  md:container pt-20">
+        <div className="md:container mx-auto pt-20">
           <Sidebar />
           <BottomNavbar />
 
@@ -28,8 +28,8 @@ export default function Home() {
             <PeopleYouFollow />
             <PeopleToFolllow />
           </div>
-          <CreatePost />
 
+          <CreatePost />
           {userData.map((data, index) => (
             <Post
               key={index}
@@ -47,5 +47,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  )
+  );
 }

@@ -5,7 +5,7 @@ import Peoples from './Peoples'
 const PeopleYouFollow = () => {
   return (
     <>
-        <div className="my-2 bg-skin-color4 rounded-3xl hidden lg:block ">
+        <div className="mb-5 bg-skin-color4 rounded-3xl hidden lg:block ">
           <h3 className="p-4">people you follow</h3>
           {userData.map((data, ind) => (
             <Peoples
