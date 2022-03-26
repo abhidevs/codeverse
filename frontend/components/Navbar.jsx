@@ -24,7 +24,7 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed flex flex-wrap items-center justify-between py-3  ${
-          colorChange ? 'bg-[#070808f1] ' : 'bg-skin-color4'
+          colorChange ? 'bg-[#232226da] ' : 'bg-skin-color4'
         } w-full z-[1000] `}
       >
         <div className="flex justify-between items-center w-full container px-18">
@@ -41,7 +41,7 @@ const Navbar = () => {
                 <input
                   type="text"
                   placeholder="Search for posts, people or topics ..."
-                  className=" mx-3 w-28 lg:w-96  text-skin-base bg-skin-color7 border-none outline-none"
+                  className=" mx-3 hidden w-80 lg:w-96  text-skin-base bg-skin-color7 border-none outline-none"
                 />
               </div>
             </>
@@ -85,7 +85,7 @@ const Navbar = () => {
             )}
             {!show ? (
               <div
-                className={`absolute h-autow-40 bg-skin-color7 top-16 rounded-2xl`}
+                className={`absolute h-auto bg-skin-color7 top-16 rounded-2xl`}
               >
                 <div className="lg:hidden flex justify-evenly my-2">
                 <button className="rounded-full bg-skin-color4 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">

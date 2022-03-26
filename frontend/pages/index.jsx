@@ -9,7 +9,6 @@ import PeopleYouFollow from '../components/PeopleYouFollow'
 import PeopleToFolllow from '../components/PeopleToFolllow'
 
 export default function Home() {
-  
   return (
     <div>
       <Head>
@@ -18,9 +17,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full h-full bg-skin-backgroud text-skin-base ">
+      <main className="w-auto h-full bg-skin-backgroud pb-1 text-skin-base ">
         <Navbar />
-        <div className="container pt-20">
+        <div className="lg:container  md:container pt-20">
           <Sidebar />
           <div className="absolute right-24 w-[260px] h-auto ">
             <PeopleYouFollow />

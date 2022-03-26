@@ -16,7 +16,7 @@ const Peoples = ({ active, profileImage, name, username, follow }) => {
           </div>
           <div className="flex flex-col items-start justify-center space-y-[7px] text-base cursor-pointer">
             <h6 className="text-[13px] font-[500] leading-4">{name}</h6>
-            <p className="text-[11px] leading-4 text-skin-base">{username}</p>
+            <p className="text-[11px] leading-4 text-skin-muted">{username}</p>
           </div>
         </div>
         {follow ? (

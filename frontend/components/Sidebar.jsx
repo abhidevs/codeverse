@@ -12,7 +12,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <div className="hidden md:flex flex-col items-start p-2 fixed h-full w-[268px]">
+    <div className="hidden md:flex flex-col items-start p-2  fixed h-full w-[268px]">
       <div className="flex items-center justify-start space-x-3 bg-skin-color4 rounded-3xl p-4 w-full">
         <div className="flex items-center justify-center w-14 h-14 p-0 cursor-pointer">
           <Image
@@ -24,7 +24,7 @@ const Sidebar = () => {
         </div>
         <div className="flex flex-col items-start justify-center space-y-[7px] text-base cursor-pointer">
           <h6 className="text-md font-[500] leading-4">John Doe</h6>
-          <p className="text-[13px] leading-4">@johndoe</p>
+          <p className="text-[13px] leading-4 text-skin-muted">@johndoe</p>
         </div>
       </div>
 
