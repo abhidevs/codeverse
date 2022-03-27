@@ -1,13 +1,18 @@
 import { BsThreeDots } from 'react-icons/bs'
 import { ChatIcon, ShareIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
-import { AiOutlineHeart, AiFillHeart, AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import {
+  AiOutlineHeart,
+  AiFillHeart,
+  AiFillDelete,
+  AiFillEdit,
+} from 'react-icons/ai'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import SidebarLink from './SidebarLink'
 import { useState } from 'react'
-
+import Link from 'next/link'
 
 const Post = ({
   name,
@@ -23,8 +28,8 @@ const Post = ({
   const [show, setShow] = useState()
   return (
     <>
-      <div className=" justify-center relative flex w-full h-auto lg:mb-5 mb-3">
-        <div className="lg:rounded-3xl md:rounded-3xl bg-skin-color4  h-auto w-[770px] lg:w-[770px]">
+      <div className=" justify-center relative flex h-auto lg:mb-5 mb-3">
+        <div className="lg:rounded-3xl md:rounded-3xl bg-skin-color4  h-auto w-auto max-w-[770px] lg:w-[770px]">
           <div className="flex justify-between w-full px-6 pt-6 ">
             <div className="flex w-auto max-w-[280px] justify-between ">
               <div className="flex items-center justify-center w-14 h-14 p-0 cursor-pointer">
@@ -80,7 +85,11 @@ const Post = ({
               ) : (
                 <AiOutlineHeart className={`h-[25px] w-[25px] } `} />
               )}
-              <ChatIcon className="h-[25px]" />
+              <Link href="/comment">
+                <a>
+                  <ChatIcon className="h-[25px]" />
+                </a>
+              </Link>
               <ShareIcon className="h-[25px]" />
             </div>
 
@@ -96,7 +105,8 @@ const Post = ({
 
               <div className="flex flex-col items-start justify-center space-y-[7px] text-base cursor-pointer ml-2">
                 <h1 className=" text-sm ">
-                  Liked by <span className='text-skin-muted'>{likedBy}</span> & <span className='text-skin-muted'>{likes}</span> others
+                  Liked by <span className="text-skin-muted">{likedBy}</span> &{' '}
+                  <span className="text-skin-muted">{likes}</span> others
                 </h1>
               </div>
             </div>

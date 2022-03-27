@@ -12,7 +12,7 @@ const SidebarLink = ({ text, icon: Icon, link, active }) => {
           }`}
         >
           <div
-            className={`w-full flex items-center justify-start space-x-3 py-4 border-inherit cursor-pointer ${
+            className={`w-full flex text-skin-base items-center justify-start space-x-3 py-4 border-inherit cursor-pointer ${
               !active && "border-b"
             }`}
           >
