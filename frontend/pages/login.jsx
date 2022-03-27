@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Head from "next/head";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
-import { LockOpenIcon, MailIcon } from "@heroicons/react/solid";
-import Link from "next/link";
+import React, { useState } from 'react'
+import Head from 'next/head'
+import { FcGoogle } from 'react-icons/fc'
+import { BsFacebook } from 'react-icons/bs'
+import { LockOpenIcon, MailIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
 
 const Login = () => {
-  const [show, setShow] = useState("");
+  const [show, setShow] = useState('')
   return (
     <>
       <Head>
@@ -15,9 +15,9 @@ const Login = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="bgimg w-full h-full">
-        <div className="grid w-full h-full place-items-center pt-6 pb-20">
-          <div className="w-auto lg:w-[400px] md:w-[400px] h-auto p-10 lg:p-14 m-2 bg-skin-color4 rounded-2xl ">
+      <div className="bgimg">
+        <div className="grid h-full place-items-center justify-center pt-6 pb-20">
+          <div className=" w-full mx-5 lg:w-[400px] md:w-[400px] h-auto p-10 lg:p-14 md:p-14 my-2 bg-skin-color4 rounded-2xl">
             <h1 className="w-full text-center text-skin-base text-[30px] ">
               Login
             </h1>
@@ -46,7 +46,7 @@ const Login = () => {
               <div className="py-4">
                 <div className="flex h-[40px] ">
                   <input
-                    type={show ? "text" : "password"}
+                    type={show ? 'text' : 'password'}
                     placeholder="Enter your password"
                     className="w-full outline-none bg-transparent text-sm text-skin-base"
                   />
@@ -65,14 +65,14 @@ const Login = () => {
                 <p className="text-skin-base text-sm">Show password</p>
               </div>
 
-              <button className="py-4 w-full bg-skin-primary text-skin-base rounded-2xl">
+              <button className="py-3 w-full bg-skin-primary text-skin-base rounded-2xl">
                 Login
               </button>
             </form>
 
             <div className="flex justify-center w-auto m-auto">
               <Link href="/register">
-                <button className="py-4 my-4 w-full  bg-skin-primary text-skin-base rounded-2xl">
+                <button className="py-3 my-4 w-full  bg-skin-primary text-skin-base rounded-2xl">
                   <a> Register</a>
                 </button>
               </Link>
@@ -84,9 +84,9 @@ const Login = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-Login.authRoute = true;
+Login.authRoute = true
 
-export default Login;
+export default Login

@@ -1,13 +1,18 @@
 import { BsThreeDots } from 'react-icons/bs'
 import { ChatIcon, ShareIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
-import { AiOutlineHeart, AiFillHeart, AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import {
+  AiOutlineHeart,
+  AiFillHeart,
+  AiFillDelete,
+  AiFillEdit,
+} from 'react-icons/ai'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import SidebarLink from './SidebarLink'
 import { useState } from 'react'
-
+import Link from 'next/link'
 
 const Post = ({
   name,
@@ -80,7 +85,11 @@ const Post = ({
               ) : (
                 <AiOutlineHeart className={`h-[25px] w-[25px] } `} />
               )}
-              <ChatIcon className="h-[25px]" />
+              <Link href="/comment">
+                <a>
+                  <ChatIcon className="h-[25px]" />
+                </a>
+              </Link>
               <ShareIcon className="h-[25px]" />
             </div>
 
@@ -96,7 +105,8 @@ const Post = ({
 
               <div className="flex flex-col items-start justify-center space-y-[7px] text-base cursor-pointer ml-2">
                 <h1 className=" text-sm ">
-                  Liked by <span className='text-skin-muted'>{likedBy}</span> & <span className='text-skin-muted'>{likes}</span> others
+                  Liked by <span className="text-skin-muted">{likedBy}</span> &{' '}
+                  <span className="text-skin-muted">{likes}</span> others
                 </h1>
               </div>
             </div>
