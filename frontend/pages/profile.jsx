@@ -1,8 +1,4 @@
 import Head from "next/head";
-import React from "react";
-import BottomNavbar from "../components/BottomNavbar";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
 
 const Profile = () => {
   return (
@@ -13,16 +9,11 @@ const Profile = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full h-screen bg-skin-backgroud pb-16 text-skin-base">
-        <Navbar />
-        <div className="md:container mx-auto pt-20">
-          <Sidebar />
-          <BottomNavbar />
-          Profile page
-        </div>
-      </main>
+      <div>Profile page</div>
     </div>
   );
 };
+
+Profile.profileRoute = true;
 
 export default Profile;

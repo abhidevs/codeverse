@@ -4,7 +4,7 @@ import {
   HomeIcon,
   UserCircleIcon,
   TrendingUpIcon,
-  AnnotationIcon,
+  SearchIcon,
   BookmarkIcon,
   BellIcon,
   PlusIcon,
@@ -44,6 +44,12 @@ const Sidebar = () => {
           active={router.pathname == "/"}
         />
         <SidebarLink
+          text="Search"
+          icon={SearchIcon}
+          link="/search"
+          active={router.pathname == "/search"}
+        />
+        <SidebarLink
           text="Profile"
           icon={UserCircleIcon}
           link="/profile"
@@ -55,7 +61,6 @@ const Sidebar = () => {
           link="/trending"
           active={router.pathname == "/trending"}
         />
-        <SidebarLink text="Messages" icon={AnnotationIcon} link="#" />
         <SidebarLink
           text="Bookmarks"
           icon={BookmarkIcon}

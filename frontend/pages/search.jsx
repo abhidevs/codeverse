@@ -1,17 +1,17 @@
 import Head from "next/head";
 
-const Bookmarks = () => {
+const Search = () => {
   return (
     <div>
       <Head>
-        <title>Bookmarks | Codeverse</title>
+        <title>Search | Codeverse</title>
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>Bookmarks page</div>
+      <div>Search page</div>
     </div>
   );
 };
 
-export default Bookmarks;
+export default Search;
