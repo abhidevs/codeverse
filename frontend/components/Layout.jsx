@@ -9,8 +9,8 @@ const Layout = ({ children, authRoute, profileRoute }) => {
     <>
       <Navbar />
       {!authRoute ? (
-        <main className="w-full h-full bg-skin-backgroud pb-16 text-skin-base">
-          <div className="md:container mx-auto pt-20">
+        <main className="w-full min-h-screen h-full bg-skin-backgroud pb-16 text-skin-base">
+          <div className="md:container mx-auto lg:pt-20 pt-[60px]">
             <>
               <Sidebar />
 

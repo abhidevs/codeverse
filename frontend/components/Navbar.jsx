@@ -23,20 +23,20 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed flex flex-wrap items-center justify-between py-3  ${
-          colorChange ? "bg-[#232226da] " : "bg-skin-color4"
+        className={`fixed flex flex-wrap items-center justify-between lg:py-3 py-1.5  ${
+          colorChange ? "navbar-glassmorphism" : "bg-skin-color4"
         } w-full z-[1000] `}
       >
         <div className="flex justify-between items-center w-full container mx-auto px-18">
           <Link href="/">
             <a>
-              <div className="text-2xl font-medium h-full p-1 w-48 cursor-pointer">
-                <span className="text-skin-base">Code</span>
-                <span className="text-skin-inverted">Verse</span>
+              <div className="lg:text-2xl text-xl h-full p-1 w-48 cursor-pointer">
+                <span className="text-skin-base font-semibold">Code</span>
+                <span className="text-skin-inverted font-bold">Verse</span>
               </div>
             </a>
           </Link>
-          {user ? (
+          {user && (
             <>
               <div className="hidden justify-center border-none bg-skin-color7 w-auto rounded-full p-1">
                 <div className="content-center grid text-skin-base bg-skin-color7 ml-3 p-2">
@@ -49,7 +49,7 @@ const Navbar = () => {
                 />
               </div>
             </>
-          ) : null}
+          )}
 
           <div className="flex justify-end items-center w-48 space-x-8">
             {user ? (
@@ -61,7 +61,7 @@ const Navbar = () => {
                   <TrendingUpIcon className="h-5" />
                 </button>
                 <div
-                  className="flex items-center justify-center w-[44px] h-[44px] cursor-pointer"
+                  className="flex items-center justify-center lg:w-[44px] lg:h-[44px] w-9 h-9 cursor-pointer"
                   onClick={() => setShow(!show)}
                 >
                   <Image
@@ -87,7 +87,7 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-            {!show ? (
+            {!show && (
               <div
                 className={`absolute h-auto bg-skin-color7 top-16 rounded-2xl`}
               >
@@ -101,7 +101,7 @@ const Navbar = () => {
                 </div>
                 <SidebarLink text="Logout" icon={LogoutIcon} />
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </nav>
