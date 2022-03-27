@@ -46,7 +46,7 @@ const BottomNavbar = () => {
 
   return (
     <nav
-      className="lg:hidden bg-skin-backgroud text-skin-base fixed left-0 -bottom-1 w-full h-[60px] 
+      className="lg:hidden bg-skin-backgroud text-skin-base fixed left-0 -bottom-1 w-full h-[54px] 
         border-t flex justify-center items-center overflow-hidden z-10 px-[15px]"
     >
       <ul className="min-w-[350px] h-full grid grid-cols-5">
@@ -79,9 +79,9 @@ const BottomNavbar = () => {
 
       <div
         className="tubelight absolute left-0 top-0 w-[45px] h-[5px] rounded-[5px] bg-skin-secondary 
-        transition-all duration-[400ms] ease-linear z-10"
+        transition-all duration-300 ease-linear z-10"
       >
-        <div className="absolute left-[-30%] top-[5px] w-[160%] h-[60px] light-ray"></div>
+        <div className="absolute left-[-30%] top-[5px] w-[160%] h-[54px] light-ray"></div>
       </div>
     </nav>
   );
