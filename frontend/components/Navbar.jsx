@@ -55,7 +55,7 @@ const Navbar = () => {
             {user ? (
               <>
                 <Link href="/#">
-                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[32px] h-[32px] lg:w-[34px] lg:h-[34px] md:w-[36px] md:h-[36px]  flex items-center justify-center">
+                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[34px] h-[34px] lg:w-[36px] lg:h-[36px] md:w-[36px] md:h-[36px]  flex items-center justify-center">
                     <a>
                       <PlusIcon className="h-5" />
                     </a>
