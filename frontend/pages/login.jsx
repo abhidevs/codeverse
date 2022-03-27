@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import Head from 'next/head'
-import { FcGoogle } from 'react-icons/fc'
-import { BsFacebook } from 'react-icons/bs'
-import { LockOpenIcon, MailIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
+import React, { useState } from "react";
+import Head from "next/head";
+import { FcGoogle } from "react-icons/fc";
+import { BsFacebook } from "react-icons/bs";
+import { LockOpenIcon, MailIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 
 const Login = () => {
-  const [show, setShow] = useState('')
+  const [show, setShow] = useState("");
   return (
     <>
       <Head>
@@ -14,8 +14,9 @@ const Login = () => {
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bgimg">
-        <div className="grid w-full h-full place-items-center ">
+
+      <div className="bgimg w-full h-full">
+        <div className="grid w-full h-full place-items-center pt-6 pb-20">
           <div className="w-auto lg:w-[400px] md:w-[400px] h-auto p-10 lg:p-14 m-2 bg-skin-color4 rounded-2xl ">
             <h1 className="w-full text-center text-skin-base text-[30px] ">
               Login
@@ -45,7 +46,7 @@ const Login = () => {
               <div className="py-4">
                 <div className="flex h-[40px] ">
                   <input
-                    type={show ? 'text' : 'password'}
+                    type={show ? "text" : "password"}
                     placeholder="Enter your password"
                     className="w-full outline-none bg-transparent text-sm text-skin-base"
                   />
@@ -83,7 +84,9 @@ const Login = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Login
+Login.authRoute = true;
+
+export default Login;

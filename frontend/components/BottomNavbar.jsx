@@ -22,7 +22,11 @@ const BottomNavbar = () => {
           link="/"
           active={router.pathname == "/"}
         />
-        <BottomNavbarLink icon={SearchIcon} link="#" />
+        <BottomNavbarLink
+          icon={SearchIcon}
+          link="/search"
+          active={router.pathname == "/search"}
+        />
         <BottomNavbarLink
           icon={TrendingUpIcon}
           link="/trending"

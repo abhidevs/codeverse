@@ -15,12 +15,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
 .bgimg {
   background-image: url('/bg.jpg');
   background-size: cover;
-  width: 100vw;
+  /* width: 100vw;
   height: 100vh;
-  /* overflow: hidden; */
+  overflow: hidden; */
 }
 
 @tailwind base;
