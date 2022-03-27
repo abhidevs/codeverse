@@ -19,12 +19,12 @@ const Navbar = () => {
     window.addEventListener('scroll', changeNavbarColor)
   }, [])
   const user = true
-  
+
   return (
     <>
       <nav
         className={`fixed flex flex-wrap items-center justify-between lg:py-3 py-1.5  ${
-          colorChange ? "navbar-glassmorphism" : "bg-skin-color4"
+          colorChange ? 'navbar-glassmorphism' : 'bg-skin-color4'
         } w-full z-[1000] `}
       >
         <div className="flex justify-between items-center w-full container mx-auto px-18">
@@ -51,25 +51,25 @@ const Navbar = () => {
             </>
           )}
 
-          <div className="flex justify-end items-center w-48 space-x-8">
+          <div className="flex justify-end items-center  w-48 space-x-4 lg:space-x-8 md:space-x-8">
             {user ? (
               <>
                 <Link href="/#">
-                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] flex items-center justify-center">
+                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[32px] h-[32px] lg:w-[34px] lg:h-[34px] md:w-[36px] md:h-[36px]  flex items-center justify-center">
                     <a>
                       <PlusIcon className="h-5" />
                     </a>
                   </button>
                 </Link>
                 <Link href="/trending">
-                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[36px] h-[36px] hidden lg:flex items-center justify-center">
+                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[36px] h-[36px]  hidden lg:flex items-center justify-center">
                     <a>
                       <TrendingUpIcon className="h-5" />
                     </a>
                   </button>
                 </Link>
                 <div
-                  className="flex items-center justify-center lg:w-[44px] lg:h-[44px] w-9 h-9 cursor-pointer"
+                  className="flex items-center justify-center lg:w-[44px] lg:h-[44px] w-[38px] h-[38px] cursor-pointer"
                   onClick={() => setShow(!show)}
                 >
                   <Image
@@ -97,7 +97,7 @@ const Navbar = () => {
             )}
             {!show && (
               <div
-                className={`absolute h-auto bg-skin-color7 top-16 rounded-2xl`}
+                className={`absolute h-auto bg-skin-color7 top-12 lg:top-16 md:top-16 rounded-2xl`}
               >
                 <SidebarLink text="Logout" icon={LogoutIcon} link="/login" />
               </div>
