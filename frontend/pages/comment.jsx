@@ -6,7 +6,7 @@ const comment = () => {
   return (
     <>
       <Head>
-        <title>Home | Codeverse</title>
+        <title>Comment | Codeverse</title>
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -23,6 +23,8 @@ const comment = () => {
           profileImage="/profile2.jpg"
         />
       </div>
+      
+
     </>
   )
 }
