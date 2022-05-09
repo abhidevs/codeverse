@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { LogoutIcon, PlusIcon, TrendingUpIcon } from '@heroicons/react/outline'
 import { FaSearch } from 'react-icons/fa'
 import SidebarLink from './SidebarLink'
 import Link from 'next/link'
 
 const Navbar = () => {
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   const [colorChange, setColorchange] = useState(false)
   const changeNavbarColor = () => {
     if (window.scrollY >= 80) {
@@ -15,9 +15,23 @@ const Navbar = () => {
       setColorchange(false)
     }
   }
+
+  const ref = useRef()
+
   useEffect(() => {
     window.addEventListener('scroll', changeNavbarColor)
-  }, [])
+
+    const checkIfClickedOutside = (e) => {
+      if (show && ref.current && !ref.current.contains(e.target)) {
+        setShow(false)
+      }
+    }
+    document.addEventListener('click', checkIfClickedOutside)
+    return () => {
+      document.removeEventListener('click', checkIfClickedOutside)
+    }
+  }, [show])
+
   const user = true
 
   return (
@@ -51,7 +65,10 @@ const Navbar = () => {
             </>
           )}
 
-          <div className="flex justify-end items-center  w-48 space-x-4 lg:space-x-8 md:space-x-8">
+          <div
+            className="flex justify-end items-center  w-48 space-x-4 lg:space-x-8 md:space-x-8"
+            ref={ref}
+          >
             {user ? (
               <>
                 <Link href="/#">
@@ -95,7 +112,7 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-            {!show && (
+            {show && (
               <div
                 className={`absolute h-auto bg-skin-color7 top-12 lg:top-16 md:top-16 rounded-2xl`}
               >

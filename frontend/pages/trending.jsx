@@ -1,6 +1,8 @@
-import Head from "next/head";
+import Head from 'next/head'
+import Post from '../components/Post'
+import userData from '../data/data'
 
-const Trending = () => {
+export default function Trending() {
   return (
     <div>
       <Head>
@@ -9,9 +11,22 @@ const Trending = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>Trending page</div>
+      <div>
+        {userData.map((data, index) => (
+          <Post
+            key={index}
+            name={data.name}
+            username={data.username}
+            description={data.description}
+            liked={data.liked}
+            likedBy={data.likedBy}
+            likes={data.likes}
+            likedProfile={data.likdeProfile}
+            swipeImage={data.postImage}
+            profileImage={data.profile}
+          />
+        ))}
+      </div>
     </div>
-  );
-};
-
-export default Trending;
+  )
+}

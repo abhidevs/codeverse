@@ -11,7 +11,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import SidebarLink from './SidebarLink'
-import { useState } from 'react'
+import { useState,useRef,useEffect } from 'react'
 import Link from 'next/link'
 
 const Post = ({
@@ -25,7 +25,22 @@ const Post = ({
   swipeImage,
   profileImage,
 }) => {
-  const [show, setShow] = useState()
+  const [show, setShow] = useState(false)
+
+  const ref = useRef()
+
+  useEffect(() => {
+
+    const checkIfClickedOutside = (e) => {
+      if (show && ref.current && !ref.current.contains(e.target)) {
+        setShow(false)
+      }
+    }
+    document.addEventListener('click', checkIfClickedOutside)
+    return () => {
+      document.removeEventListener('click', checkIfClickedOutside)
+    }
+  }, [show])
   return (
     <>
       <div className=" justify-center relative flex h-auto lg:mb-5 mb-3">
@@ -47,7 +62,7 @@ const Post = ({
                 </p>
               </div>
             </div>
-            <div className="flex w-10 justify-end">
+            <div className="flex w-10 justify-end" ref={ref}>
               <button
                 className="rounded-full w-7 grid place-items-center "
                 onClick={() => setShow(!show)}
