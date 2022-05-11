@@ -56,7 +56,7 @@ const comment = () => {
             />
           </div>
           <div className="flex justify-between w-full h-full mx-4 py-2 px-3 bg-skin-color4 rounded-lg ">
-            <p className="w-[90%]">
+            <p className="w-[90%] text-sm">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
               ipsa cumque laborum tempore eligendi voluptatem quas! Nulla,
               obcaecati? Laborum dolor est assumenda doloremque, alias

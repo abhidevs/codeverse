@@ -67,7 +67,6 @@ const Profile = () => {
               <AiOutlineLink className="mr-2" />
               <a
                 href="https://www.devbisu.tk/"
-                target="_blank"
                 className="text-[13px] leading-4 text-skin-inverted "
               >
                 https://www.devbisu.tk/
