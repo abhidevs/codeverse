@@ -114,8 +114,8 @@ const EditProfile = () => {
                   <h2 className="text-blue-600"> Date Of Birth </h2>
                   <div className="flex h-[40px] ">
                     <input
-                      type="text"
-                      placeholder="03/07/1982"
+                      type="tel"
+                      placeholder="21 December 1999"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
                     <PencilAltIcon className=" h-[20px]  text-skin-base" />
