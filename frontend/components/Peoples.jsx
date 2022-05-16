@@ -19,6 +19,7 @@ const Peoples = ({ active, profileImage, name, username, follow }) => {
             <p className="text-[11px] leading-4 text-skin-muted">{username}</p>
           </div>
         </div>
+
         {follow ? (
           <button
             className={`bg-skin-primary py-1 px-2 rounded-3xl text-[9px]`}

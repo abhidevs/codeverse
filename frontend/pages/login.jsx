@@ -4,9 +4,11 @@ import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook } from 'react-icons/bs'
 import { LockOpenIcon, MailIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
+import { GoogleLogin } from 'react-google-login'
 
 const Login = () => {
   const [show, setShow] = useState('')
+
   return (
     <>
       <Head>
@@ -23,7 +25,7 @@ const Login = () => {
             </h1>
             <div className="flex justify-evenly pt-6">
               <button className="p-2 bg-white rounded-full">
-                <FcGoogle className="w-[40px] h-[40px]" />
+                <FcGoogle className="w-[40px] h-[40px] text-skin-inverted" />
               </button>
               <button className="p-2 bg-white rounded-full">
                 <BsFacebook className="w-[40px] h-[40px] text-skin-inverted" />

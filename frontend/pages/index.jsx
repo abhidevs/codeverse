@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Post from "../components/Post";
 import CreatePost from "../components/CreatePost";
-import "swiper/css/bundle";
 import userData from "../data/data";
 
 export default function Home() {
