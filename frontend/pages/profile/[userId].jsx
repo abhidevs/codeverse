@@ -5,8 +5,8 @@ import { AiOutlineLink } from 'react-icons/ai'
 import { BsFillPenFill } from 'react-icons/bs'
 import { FaBirthdayCake } from 'react-icons/fa'
 import { MdLocationOn } from 'react-icons/md'
-import Post from '../components/Post'
-import userData from '../data/data'
+import Post from '../../components/Post'
+import userData from '../../data/data'
 
 const Profile = () => {
   return (

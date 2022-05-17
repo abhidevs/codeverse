@@ -1,15 +1,18 @@
-import React from 'react'
-import Post from '../components/Post'
-import Head from 'next/head'
-import Image from 'next/image'
-import { BiSend } from 'react-icons/bi'
-import { AiFillDelete } from 'react-icons/ai'
+import React from "react";
+import Post from "../../components/Post";
+import Head from "next/head";
+import Image from "next/image";
+import { BiSend } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
 
 const comment = () => {
   return (
     <>
       <Head>
-        <title>Comment | Codeverse</title>
+        <title>
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. | Codeverse
+        </title>
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -68,7 +71,7 @@ const comment = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default comment
+export default comment;

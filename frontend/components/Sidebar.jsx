@@ -18,7 +18,7 @@ const Sidebar = () => {
   return (
     <div className="hidden lg:flex flex-col items-start px-2 fixed h-full w-[268px] z-50">
       <div className="flex items-center justify-start bg-skin-color4 rounded-3xl p-4 w-full">
-        <Link href="/profile">
+        <Link href={`/profile/987654321`}>
           <a className="w-full flex items-center justify-start space-x-3">
             <div className="flex items-center justify-center w-14 h-14 p-0 cursor-pointer">
               <Image
@@ -52,7 +52,7 @@ const Sidebar = () => {
         <SidebarLink
           text="Profile"
           icon={UserCircleIcon}
-          link="/profile"
+          link={`/profile/987654321`}
           active={router.pathname == "/profile"}
         />
         <SidebarLink

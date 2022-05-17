@@ -1,18 +1,18 @@
-import { BsThreeDots } from 'react-icons/bs'
-import { ChatIcon, ShareIcon } from '@heroicons/react/outline'
-import Image from 'next/image'
+import { BsThreeDots } from "react-icons/bs";
+import { ChatIcon, ShareIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 import {
   AiOutlineHeart,
   AiFillHeart,
   AiFillDelete,
   AiFillEdit,
-} from 'react-icons/ai'
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-import SidebarLink from './SidebarLink'
-import { useState,useRef,useEffect } from 'react'
-import Link from 'next/link'
+} from "react-icons/ai";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import SidebarLink from "./SidebarLink";
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 const Post = ({
   name,
@@ -25,22 +25,21 @@ const Post = ({
   swipeImage,
   profileImage,
 }) => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
-  const ref = useRef()
+  const ref = useRef();
 
   useEffect(() => {
-
     const checkIfClickedOutside = (e) => {
       if (show && ref.current && !ref.current.contains(e.target)) {
-        setShow(false)
+        setShow(false);
       }
-    }
-    document.addEventListener('click', checkIfClickedOutside)
+    };
+    document.addEventListener("click", checkIfClickedOutside);
     return () => {
-      document.removeEventListener('click', checkIfClickedOutside)
-    }
-  }, [show])
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [show]);
   return (
     <>
       <div className=" justify-center relative flex h-auto lg:mb-5 mb-3">
@@ -100,7 +99,7 @@ const Post = ({
               ) : (
                 <AiOutlineHeart className={`h-[25px] w-[25px] } `} />
               )}
-              <Link href="/comment">
+              <Link href={`/post/12345678910`}>
                 <a>
                   <ChatIcon className="h-[25px]" />
                 </a>
@@ -120,7 +119,7 @@ const Post = ({
 
               <div className="flex flex-col items-start justify-center space-y-[7px] text-base cursor-pointer ml-2">
                 <h1 className=" text-sm ">
-                  Liked by <span className="text-skin-muted">{likedBy}</span> &{' '}
+                  Liked by <span className="text-skin-muted">{likedBy}</span> &{" "}
                   <span className="text-skin-muted">{likes}</span> others
                 </h1>
               </div>
@@ -129,7 +128,7 @@ const Post = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;

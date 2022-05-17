@@ -1,0 +1,43 @@
+const User = require("../models/userModel");
+
+exports.createUser = async (userBody) => {
+  try {
+    const { fullname, email, username, password, signinMethod } = userBody;
+    return await User.create({
+      fullname,
+      email,
+      username,
+      password,
+      signinMethod,
+    });
+  } catch (error) {
+    throw Error("Something went wrong");
+  }
+};
+
+exports.findUserByEmail = async (email) => {
+  try {
+    console.log(email);
+    const user = await User.findOne({ email });
+    console.log(user);
+    return user;
+  } catch (error) {
+    throw Error("Something went wrong");
+  }
+};
+
+exports.searchUser = async (searchQuery) => {
+  try {
+    const keyWord = {
+      $or: [
+        { fullname: { $regex: searchQuery, $options: "i" } },
+        { username: { $regex: searchQuery, $options: "i" } },
+        { email: { $regex: searchQuery, $options: "i" } },
+      ],
+    };
+
+    return await User.find(keyWord);
+  } catch (error) {
+    throw Error("Something went wrong");
+  }
+};
