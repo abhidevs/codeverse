@@ -44,6 +44,10 @@ const userSchema = new Mongoose.Schema(
     address: {
       type: String,
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

@@ -34,6 +34,7 @@ exports.searchUser = async (searchQuery) => {
         { username: { $regex: searchQuery, $options: "i" } },
         { email: { $regex: searchQuery, $options: "i" } },
       ],
+      isDeleted: false,
     };
 
     return await User.find(keyWord);
