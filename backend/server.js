@@ -2,6 +2,9 @@ const express = require("express");
 const connectDB = require("./db/connectDB");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const likeRoutes = require("./routes/likeRoutes");
+const followRoutes = require("./routes/followRoutes");
 const cors = require("cors");
 
 const app = express();
@@ -14,6 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/like", likeRoutes);
+app.use("/api/follow", followRoutes);
+app.use("/api/comment", commentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
