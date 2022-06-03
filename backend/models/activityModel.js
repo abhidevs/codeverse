@@ -2,7 +2,7 @@ const Mongoose = require("mongoose");
 
 const activitySchema = new Mongoose.Schema(
   {
-    parentId: {
+    parent: {
       type: Mongoose.Schema.Types.ObjectId,
       required: true,
     },

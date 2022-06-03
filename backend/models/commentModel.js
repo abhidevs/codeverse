@@ -6,12 +6,12 @@ const commentSchema = new Mongoose.Schema(
       type: String,
       required: true,
     },
-    userId: {
+    user: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    parentId: {
+    parent: {
       type: Mongoose.Schema.Types.ObjectId,
       required: true,
     },
@@ -19,7 +19,7 @@ const commentSchema = new Mongoose.Schema(
       type: String,
       required: true,
     },
-    ActivityId: {
+    activity: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: "Activity",
       required: true,

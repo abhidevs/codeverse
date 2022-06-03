@@ -2,12 +2,12 @@ const Mongoose = require("mongoose");
 
 const likeSchema = new Mongoose.Schema(
   {
-    userId: {
+    user: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    parentId: {
+    parent: {
       type: Mongoose.Schema.Types.ObjectId,
       required: true,
     },
@@ -15,7 +15,7 @@ const likeSchema = new Mongoose.Schema(
       type: String,
       required: true,
     },
-    ActivityId: {
+    activity: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: "Activity",
       required: true,

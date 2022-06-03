@@ -17,9 +17,7 @@ exports.createUser = async (userBody) => {
 
 exports.findUserByEmail = async (email) => {
   try {
-    console.log(email);
     const user = await User.findOne({ email });
-    console.log(user);
     return user;
   } catch (error) {
     throw Error("Something went wrong");

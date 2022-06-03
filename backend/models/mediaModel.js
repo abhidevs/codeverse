@@ -6,7 +6,7 @@ const mediaSchema = new Mongoose.Schema(
       type: String,
       required: true,
     },
-    userId: {
+    user: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

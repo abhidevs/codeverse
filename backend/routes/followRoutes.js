@@ -1,5 +1,9 @@
 const express = require("express");
-const { findFollower, createFollower } = require("../controllers/followController");
+const {
+  findFollower,
+  createFollower,
+  unFollow,
+} = require("../controllers/followController");
 const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 
