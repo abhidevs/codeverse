@@ -1,18 +1,27 @@
-const express = require("express");
+const router = require("express").Router();
 const postController = require("../controllers/postController");
-const authMiddleware = require("../middleware/authMiddleware");
+const auth = require("../middleware/auth");
 
-const router = express.Router();
+router.route("/").post(auth, postController.createPost).get(auth, postController.getPosts);
 
-router.get("/feed", authMiddleware, postController.getUserFeed);
+router.get("/discover", auth, postController.getPostsDicover);
 
-router.get("/trending", authMiddleware, postController.getTrendingPosts);
+router.get("/getsavedposts", auth, postController.getSavedPosts);
 
-router.get("/user/:userId", authMiddleware, postController.getPostsOfUser);
+router.get("/user/:id", auth, postController.getUserPosts);
 
-router.post("/", authMiddleware, postController.createPost);
+router
+  .route("/:id")
+  .patch(auth, postController.updatePost)
+  .get(auth, postController.getPost)
+  .delete(auth, postController.deletePost);
 
-router.get("/:postId", authMiddleware, postController.getPost);
+router.patch("/:id/save", auth, postController.savePost);
 
+router.patch("/:id/unsave", auth, postController.unSavePost);
+
+router.patch("/:id/like", auth, postController.likePost);
+
+router.patch("/:id/unlike", auth, postController.unLikePost);
 
 module.exports = router;

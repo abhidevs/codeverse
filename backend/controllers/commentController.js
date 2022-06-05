@@ -1,52 +1,118 @@
+const Comments = require("../models/commentModel");
+const Posts = require("../models/postModel");
 
-const commentService = require('../services/commentService');
-
-exports.createComment = async (req, res) => {
+const commentController = {
+  createComment: async (req, res) => {
     try {
-        const { text, parentId, parentType, ActivityId } = req.body;
-        if (!text || !parentId || !parentType || !ActivityId || !userId) {
-            return res.status(401).json({ message: "please enter the all details" });
-        }
-        const Commnet = await commentService.createComment({
-            text,
-            userId,
-            parentId,
-            parentType,
-            ActivityId
-        })
-        res.status(201).json(Commnet)
-    } catch (error) {
-        console.log(error);
-        throw Error("Something went wrong");
-    }
-}
+      const { postId, content, tag, reply, postUserId } = req.body;
 
-exports.getComment = async (req, res) => {
+      const post = await Posts.findById(postId);
+      if (!post)
+        return res.status(400).json({ msg: "This post does not exist." });
+
+      if (reply) {
+        const cm = await Comments.findById(reply);
+        if (!cm)
+          return res.status(400).json({ msg: "This comment does not exist." });
+      }
+
+      const newComment = new Comments({
+        user: req.user._id,
+        content,
+        tag,
+        reply,
+        postUserId,
+        postId,
+      });
+
+      await Posts.findOneAndUpdate(
+        { _id: postId },
+        {
+          $push: { comments: newComment._id },
+        },
+        { new: true }
+      );
+
+      await newComment.save();
+
+      res.json({ newComment });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  updateComment: async (req, res) => {
     try {
-        const { parentId } = req.body;
-        if (!parentId) {
-            return res.status(401).json({ message: "user not authenticate" });
-        }
-        const Commnet = await commentService.getComment({ parentId })
-        res.status(201).json(Commnet)
-    } catch (error) {
-        console.log(error);
-        throw Error("Something went wrong");
-    }
-}
+      const { content } = req.body;
 
-exports.deleteComment = async (req, res) => {
+      await Comments.findOneAndUpdate(
+        {
+          _id: req.params.id,
+          user: req.user._id,
+        },
+        { content }
+      );
+
+      res.json({ msg: "Update Success!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  likeComment: async (req, res) => {
     try {
-        const { parentId } = req.body;
-        if (!parentId) {
-            return res.status(401).json({ message: "user not authenticate" });
-        }
-        await commentService.deleteComment({ parentId })
-        res.status(201).json({ message: "comment deleted seccessfully" })
-    } catch (error) {
-        console.log(error);
-        throw Error("Something went wrong");
+      const comment = await Comments.find({
+        _id: req.params.id,
+        likes: req.user._id,
+      });
+      if (comment.length > 0)
+        return res.status(400).json({ msg: "You liked this post." });
+
+      await Comments.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: { likes: req.user._id },
+        },
+        { new: true }
+      );
+
+      res.json({ msg: "Liked Comment!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
     }
-}
+  },
+  unLikeComment: async (req, res) => {
+    try {
+      await Comments.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $pull: { likes: req.user._id },
+        },
+        { new: true }
+      );
 
+      res.json({ msg: "UnLiked Comment!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  deleteComment: async (req, res) => {
+    try {
+      const comment = await Comments.findOneAndDelete({
+        _id: req.params.id,
+        $or: [{ user: req.user._id }, { postUserId: req.user._id }],
+      });
 
+      await Posts.findOneAndUpdate(
+        { _id: comment.postId },
+        {
+          $pull: { comments: req.params.id },
+        }
+      );
+
+      res.json({ msg: "Deleted Comment!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+};
+
+module.exports = commentController;
