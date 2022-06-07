@@ -1,14 +1,34 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { AiOutlineLink } from 'react-icons/ai'
 import { BsFillPenFill } from 'react-icons/bs'
 import { FaBirthdayCake } from 'react-icons/fa'
 import { MdLocationOn } from 'react-icons/md'
 import Post from '../../components/Post'
 import userData from '../../data/data'
+import axios from 'axios'
 
 const Profile = () => {
+  const [data, setdata] = useState([])
+
+  const getData = async () => {
+    try {
+      
+      const { data } = await axios.get(
+        'http://localhost:5000/api/users/629e17567a841ec898661c9e',
+      )
+      setdata(data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <div>
       <Head>
@@ -38,7 +58,7 @@ const Profile = () => {
                   className="rounded-full object-cover"
                 />
               </div>
-              <Link href="/editprofile">
+              <Link href="/editprofile/35a4fd3qw4">
                 <a>
                   <button className="px-4 h-12 justify-center  bg-skin-primary rounded-3xl">
                     Edit Profile
@@ -50,15 +70,15 @@ const Profile = () => {
 
           <div className="flex justify-between px-4 mt-16">
             <div className=" h-auto">
-              <h6 className="text-md font-[500] leading-4">Biswanath Bera </h6>
+              <h6 className="text-md font-[500] leading-4">{data.fullname} </h6>
               <p className="text-[13px] mt-1 leading-4 text-skin-muted">
-                @bisu03
+                {data.username}
               </p>
             </div>
             <div className="h-auto text-right">
-              <h6 className="text-md font-[500] leading-4">Male</h6>
+              <h6 className="text-md font-[500] leading-4">{data.gender}</h6>
               <p className="text-[13px] mt-1 leading-4 text-skin-muted">
-                email@bisu.com
+                {data.email}
               </p>
             </div>
           </div>
@@ -69,7 +89,7 @@ const Profile = () => {
                 href="https://www.devbisu.tk/"
                 className="text-[13px] leading-4 text-skin-inverted "
               >
-                https://www.devbisu.tk/
+                {data.website}
               </a>
             </div>
             <div className="flex">
@@ -86,11 +106,11 @@ const Profile = () => {
           <div className=" justify-between px-4">
             <div className="flex mt-4">
               <BsFillPenFill className="mr-2" />
-              <p className="text-sm leading-4">You know who I am.</p>
+              <p className="text-sm leading-4">{data.bio}</p>
             </div>
             <div className="flex mt-4">
               <MdLocationOn className="mr-2" />
-              <p className="text-sm leading-4">Chiranjibpur, Haldia</p>
+              <p className="text-sm leading-4">{data.address}</p>
             </div>
           </div>
 

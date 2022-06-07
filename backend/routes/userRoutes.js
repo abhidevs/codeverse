@@ -8,7 +8,7 @@ router.get("/suggestions", auth, userController.suggestionsUser);
 
 router.get("/:id", auth, userController.getUser);
 
-router.patch("/", auth, userController.updateUser);
+router.patch("/updateuser/:id", auth, userController.updateUser);
 
 router.patch("/:id/follow", auth, userController.follow);
 

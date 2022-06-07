@@ -7,7 +7,7 @@ const userController = {
         username: { $regex: req.query.username },
       })
         .limit(10)
-        .select("fullname username avatar");
+        .select("fullname username avatar email");
 
       res.json({ users });
     } catch (err) {
@@ -20,29 +20,22 @@ const userController = {
         .select("-password")
         .populate("followers following", "-password");
       if (!user) return res.status(400).json({ msg: "User does not exist." });
-
       res.json({ user });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
   updateUser: async (req, res) => {
+    console.log(req.body);
     try {
-      const { avatar, fullname, mobile, address, story, website, gender } =
+      const { fullname, username, email, avatar, coverimage, bio, gender, dob, website } =
         req.body;
-      // if(!fullname) return res.status(400).json({msg: "Please add your full name."})
 
       await Users.findOneAndUpdate(
-        { _id: req.user._id },
+        req.params.id,
         {
-          avatar,
-          fullname,
-          mobile,
-          address,
-          story,
-          website,
-          gender,
-        }
+          fullname, username, email, avatar, coverimage, bio, gender, dob, website
+        }, { new: true }
       );
 
       res.json({ msg: "Update Success!" });
