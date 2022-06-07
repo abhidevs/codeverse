@@ -46,12 +46,17 @@ const postController = {
   },
   getPosts: async (req, res) => {
     try {
-      const features = new APIfeatures(
-        Posts.find({
-          user: [...req.user.following, req.user._id],
-        }),
-        req.query
-      ).paginating();
+      let features;
+      if (req.user) {
+        features = new APIfeatures(
+          Posts.find({
+            user: [...req.user.following, req.user._id],
+          }),
+          req.query
+        ).paginating();
+      } else {
+        features = new APIfeatures(Posts.find(), req.query).paginating();
+      }
 
       const posts = await features.query
         .sort("-createdAt")

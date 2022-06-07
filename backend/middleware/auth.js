@@ -5,6 +5,7 @@ const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization");
 
+    // console.log({ token });
     if (!token || !token.startsWith("Bearer"))
       return res.status(400).json({ msg: "Invalid Authentication." });
 

@@ -4,29 +4,29 @@ import Head from "next/head";
 import Image from "next/image";
 import { BiSend } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
+import { wrapper } from "../../store/store";
+import axios from "axios";
+import API from "../../api/api";
 
-const comment = () => {
+const comment = ({ post }) => {
+  console.log(post);
+
   return (
     <>
       <Head>
-        <title>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. | Codeverse
-        </title>
+        <title>post?.content | Codeverse</title>
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
         <Post
-          name="Biswanath Bera"
-          username="@bisu03"
-          description="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters"
+          name={post?.user?.fullname}
+          username={post?.user?.username}
+          description={post?.content}
           liked={true}
-          likedBy="@elon"
-          likes="280"
-          likedProfile="/profile1.jpg"
-          swipeImage="/image1.jpg"
-          profileImage="/profile2.jpg"
+          likes={post?.likes?.length}
+          swipeImage={post?.images[0].url}
+          profileImage={post?.user?.avatar}
         />
       </div>
       <div className="justify-center relative flex h-auto lg:mb-5 mb-3 ">
@@ -75,3 +75,18 @@ const comment = () => {
 };
 
 export default comment;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  ({ dispatch }) =>
+    async (ctx) => {
+      const { postId } = ctx.params;
+
+      const res = await axios.get(`${API}/posts/${postId}`).catch((err) => {
+        console.log(err?.response?.data || err);
+      });
+
+      return {
+        props: { post: res.data?.post },
+      };
+    }
+);
