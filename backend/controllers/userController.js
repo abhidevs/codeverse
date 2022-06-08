@@ -22,14 +22,16 @@ const userController = {
         .select("-password")
         .populate("followers following", "-password");
       if (!user) return res.status(400).json({ msg: "User does not exist." });
-      console.log(user);
+      // console.log(user);
+      
       res.json({ user });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
   updateUser: async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
+
     try {
       const {
         address,
