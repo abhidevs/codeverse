@@ -1,5 +1,5 @@
-import Image from "next/image";
-import SidebarLink from "./SidebarLink";
+import Image from 'next/image'
+import SidebarLink from './SidebarLink'
 import {
   HomeIcon,
   UserCircleIcon,
@@ -8,12 +8,15 @@ import {
   BookmarkIcon,
   BellIcon,
   PlusIcon,
-} from "@heroicons/react/outline";
-import { useRouter } from "next/router";
-import Link from "next/link";
+} from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { shallowEqual, useSelector } from 'react-redux'
 
 const Sidebar = () => {
-  const router = useRouter();
+  const { user } = useSelector((state) => state.auth)
+
+  const router = useRouter()
 
   return (
     <div className="hidden lg:flex flex-col items-start px-2 fixed h-full w-[268px] z-50">
@@ -35,43 +38,42 @@ const Sidebar = () => {
           </a>
         </Link>
       </div>
-
       <div className="mt-8 rounded-3xl bg-skin-color4 w-full py-5">
         <SidebarLink
           text="Home"
           icon={HomeIcon}
           link="/"
-          active={router.pathname == "/"}
+          active={router.pathname == '/'}
         />
         <SidebarLink
           text="Search"
           icon={SearchIcon}
           link="/search"
-          active={router.pathname == "/search"}
+          active={router.pathname == '/search'}
         />
         <SidebarLink
           text="Profile"
           icon={UserCircleIcon}
-          link={`/profile/987654321`}
-          active={router.pathname == "/profile"}
+          link={`/profile/${user._id}`}
+          active={router.pathname == `/profile`}
         />
         <SidebarLink
           text="Trending"
           icon={TrendingUpIcon}
           link="/trending"
-          active={router.pathname == "/trending"}
+          active={router.pathname == '/trending'}
         />
         <SidebarLink
           text="Bookmarks"
           icon={BookmarkIcon}
           link="/bookmarks"
-          active={router.pathname == "/bookmarks"}
+          active={router.pathname == '/bookmarks'}
         />
         <SidebarLink text="Notifications" icon={BellIcon} link="#" />
         <SidebarLink text="Create Post" icon={PlusIcon} link="#" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

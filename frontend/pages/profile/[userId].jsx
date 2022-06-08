@@ -9,26 +9,55 @@ import { MdLocationOn } from 'react-icons/md'
 import Post from '../../components/Post'
 import userData from '../../data/data'
 import axios from 'axios'
+import { useSelector, shallowEqual } from 'react-redux'
+import { useRouter } from 'next/router'
+import LodingScreen from '../../components/LodingScreen'
 
 const Profile = () => {
+  const { user, accessToken } = useSelector((state) => state.auth, shallowEqual)
   const [data, setdata] = useState([])
+  const [loding, setLoding] = useState(false)
+
+  const router = useRouter()
+  const { userId } = router.query
 
   const getData = async () => {
+    setLoding(true)
     try {
-      
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
       const { data } = await axios.get(
-        'http://localhost:5000/api/users/629e17567a841ec898661c9e',
+        `http://localhost:5000/api/users/${userId}`,
+        config,
       )
+      console.log(data.user)
       setdata(data.user)
+      setLoding(false)
     } catch (error) {
       console.log(error)
+      setLoding(false)
+      alert(res.data.msg)
     }
   }
-
   useEffect(() => {
     getData()
   }, [])
 
+  const handleClick = (getId) => {
+    // console.log(getId);
+    if (getId) {
+      router.push(`/editprofile/${getId}`)
+    } else {
+      alert('not authenticate')
+    }
+  }
+
+  if (loding) {
+    return <LodingScreen />
+  }
   return (
     <div>
       <Head>
@@ -42,7 +71,7 @@ const Profile = () => {
           <div className="relative">
             <div className="w-auto max-w-[770px] lg:w-[770px] m-auto overflow-hidden">
               <Image
-                src="/image6.jpg"
+                src="/image1.jpg"
                 width={770}
                 height={310}
                 className="lg:rounded-tr-3xl md:rounded-tr-3xl lg:rounded-tl-3xl md:rounded-tl-3xl object-cover"
@@ -52,19 +81,18 @@ const Profile = () => {
             <div className="flex absolute inset-x-0 bottom-[-35px] w-full h-auto px-4 justify-between items-center ">
               <div className="flex items-center justify-between w-20 h-20 p-0 cursor-pointer">
                 <Image
-                  src="/dummyProfileImg.jpg"
+                  src="/image1.jpg"
                   width={180}
                   height={180}
                   className="rounded-full object-cover"
                 />
               </div>
-              <Link href="/editprofile/35a4fd3qw4">
-                <a>
-                  <button className="px-4 h-12 justify-center  bg-skin-primary rounded-3xl">
-                    Edit Profile
-                  </button>
-                </a>
-              </Link>
+              <button
+                onClick={() => handleClick(data._id)}
+                className="px-4 h-12 justify-center  bg-skin-primary rounded-3xl"
+              >
+                Edit Profile
+              </button>
             </div>
           </div>
 
@@ -98,7 +126,7 @@ const Profile = () => {
                 target="_blank"
                 className="text-[13px] leading-4 text-skin-muted "
               >
-                21 December 1999
+                {data.dob}
               </p>
             </div>
           </div>

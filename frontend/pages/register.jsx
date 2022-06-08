@@ -1,12 +1,67 @@
-import React, { useState } from 'react'
-import Head from 'next/head'
-import { FcGoogle } from 'react-icons/fc'
-import { BsFacebook } from 'react-icons/bs'
-import { LockOpenIcon, MailIcon, UsersIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
+import React, { useState } from "react";
+import Head from "next/head";
+import { FcGoogle } from "react-icons/fc";
+import { BsFacebook } from "react-icons/bs";
+import {
+  LockOpenIcon,
+  MailIcon,
+  UserCircleIcon,
+  PencilIcon,
+} from "@heroicons/react/outline";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { setAccessToken, setUser } from "../store/authSlice";
 
 const Register = () => {
-  const [show, setShow] = useState('')
+  const initialFormData = {
+    fullname: "",
+    username: "",
+    email: "",
+    password: "",
+  };
+
+  const [show, setShow] = useState("");
+  const [formData, setFormData] = useState(initialFormData);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { fullname, username, email, password } = { ...formData };
+
+    if (!fullname || !username || !email || !password)
+      return alert("Please enter all fields");
+
+    axios
+      .post(`api/auth/register`, { fullname, username, email, password })
+      .then((res) => {
+        console.log(res.data);
+        const { user, access_token } = res.data;
+
+        dispatch(setUser(user));
+        dispatch(setAccessToken(access_token));
+
+        localStorage.setItem(
+          "codeverse_userSession",
+          JSON.stringify(access_token)
+        );
+        localStorage.setItem("codeverse_user", JSON.stringify(user));
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err?.response?.data || err);
+        alert(err?.response?.data?.msg || "Something went wrong");
+      });
+  };
+
   return (
     <>
       <Head>
@@ -29,15 +84,40 @@ const Register = () => {
               </button>
             </div>
 
-            <form action="" className="w-full grid items-center pt-8">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full grid items-center pt-8"
+            >
               <div className="py-4">
                 <div className="flex h-[40px] ">
                   <input
                     type="text"
+                    name="fullname"
+                    value={formData.fullname}
+                    onChange={handleChange}
+                    placeholder="Enter your full name"
+                    required
+                    autoFocus
+                    className="w-full outline-none bg-transparent text-skin-base text-sm"
+                  />
+                  <PencilIcon className=" h-[24px]  text-skin-base" />
+                </div>
+                <div className="w-ful bg-skin-secondary border border-skin-secondary"></div>
+              </div>
+
+              <div className="py-4">
+                <div className="flex h-[40px] ">
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
                     placeholder="Enter your username"
+                    required
+                    autoFocus
                     className="w-full outline-none bg-transparent text-skin-base text-sm"
                   />
-                  <UsersIcon className=" h-[30px]  text-skin-base" />
+                  <UserCircleIcon className=" h-[24px]  text-skin-base" />
                 </div>
                 <div className="w-ful bg-skin-secondary border border-skin-secondary"></div>
               </div>
@@ -46,10 +126,15 @@ const Register = () => {
                 <div className="flex h-[40px] ">
                   <input
                     type="text"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
+                    required
+                    autoFocus
                     className="w-full outline-none bg-transparent text-skin-base text-sm"
                   />
-                  <MailIcon className=" h-[30px]  text-skin-base" />
+                  <MailIcon className=" h-[24px]  text-skin-base" />
                 </div>
                 <div className="w-ful bg-skin-secondary border border-skin-secondary"></div>
               </div>
@@ -57,11 +142,16 @@ const Register = () => {
               <div className="py-4">
                 <div className="flex h-[40px] ">
                   <input
-                    type={show ? 'text' : 'password'}
+                    type={show ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Enter your password"
+                    required
+                    autoFocus
                     className="w-full outline-none bg-transparent text-skin-base text-sm"
                   />
-                  <LockOpenIcon className=" h-[30px] text-skin-base" />
+                  <LockOpenIcon className=" h-[24px] text-skin-base" />
                 </div>
                 <div className="w-ful bg-skin-secondary border border-skin-secondary"></div>
               </div>
@@ -69,14 +159,22 @@ const Register = () => {
               <div className="flex w-full items-center px-2 mb-2">
                 <input
                   type="checkbox"
-                  placeholder="Enter your password"
+                  id="showPassword"
                   className="outline-none bg-transparent mr-2"
                   onClick={() => setShow(!show)}
                 />
-                <p className="text-skin-base text-sm">Show password</p>
+                <label
+                  className="text-skin-base text-sm"
+                  htmlFor="showPassword"
+                >
+                  Show password
+                </label>
               </div>
 
-              <button className="py-3 w-full bg-skin-primary text-skin-base rounded-2xl">
+              <button
+                type="submit"
+                className="py-3 w-full bg-skin-primary text-skin-base rounded-2xl"
+              >
                 Register
               </button>
             </form>
@@ -89,9 +187,9 @@ const Register = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-Register.authRoute = true
+Register.authRoute = true;
 
-export default Register
+export default Register;

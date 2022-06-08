@@ -1,44 +1,49 @@
-import Image from 'next/image'
-import { useEffect, useState, useRef } from 'react'
-import { LogoutIcon, PlusIcon, TrendingUpIcon } from '@heroicons/react/outline'
-import { FaSearch } from 'react-icons/fa'
-import SidebarLink from './SidebarLink'
-import Link from 'next/link'
+import Image from "next/image";
+import { useEffect, useState, useRef } from "react";
+import { LogoutIcon, PlusIcon, TrendingUpIcon } from "@heroicons/react/outline";
+import { FaSearch } from "react-icons/fa";
+import SidebarLink from "./SidebarLink";
+import Link from "next/link";
+import { shallowEqual, useSelector } from "react-redux";
 
 const Navbar = () => {
-  const [show, setShow] = useState(false)
-  const [colorChange, setColorchange] = useState(false)
+  // const {
+  //   user
+  // } = useSelector((state) => state.auth, shallowEqual);
+
+  const [show, setShow] = useState(false);
+  const [colorChange, setColorchange] = useState(false);
+
+  const { user } = useSelector((state) => state.auth);
   const changeNavbarColor = () => {
     if (window.scrollY >= 80) {
-      setColorchange(true)
+      setColorchange(true);
     } else {
-      setColorchange(false)
+      setColorchange(false);
     }
-  }
+  };
 
-  const ref = useRef()
+  const ref = useRef();
 
   useEffect(() => {
-    window.addEventListener('scroll', changeNavbarColor)
+    window.addEventListener("scroll", changeNavbarColor);
 
     const checkIfClickedOutside = (e) => {
       if (show && ref.current && !ref.current.contains(e.target)) {
-        setShow(false)
+        setShow(false);
       }
-    }
-    document.addEventListener('click', checkIfClickedOutside)
+    };
+    document.addEventListener("click", checkIfClickedOutside);
     return () => {
-      document.removeEventListener('click', checkIfClickedOutside)
-    }
-  }, [show])
-
-  const user = true
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [show]);
 
   return (
     <>
       <nav
         className={`fixed flex flex-wrap items-center justify-between lg:py-3 py-1.5  ${
-          colorChange ? 'navbar-glassmorphism' : 'bg-skin-color4'
+          colorChange ? "navbar-glassmorphism" : "bg-skin-color4"
         } w-full z-[1000] `}
       >
         <div className="flex justify-between items-center w-full container mx-auto px-18">
@@ -90,7 +95,7 @@ const Navbar = () => {
                   onClick={() => setShow(!show)}
                 >
                   <Image
-                    src="/dummyProfileImg.jpg"
+                    src={user.avatar}
                     alt="profile image"
                     width={180}
                     height={180}
@@ -102,7 +107,7 @@ const Navbar = () => {
               <>
                 <Link href="/login">
                   <button className=" md:block py-1 w-36 bg-skin-primary text-skin-base rounded-2xl">
-                    <a> login</a>
+                    <a>Login</a>
                   </button>
                 </Link>
                 <Link href="/register">
@@ -123,7 +128,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

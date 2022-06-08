@@ -1,13 +1,59 @@
-import React, { useState } from 'react'
-import Head from 'next/head'
-import { FcGoogle } from 'react-icons/fc'
-import { BsFacebook } from 'react-icons/bs'
-import { LockOpenIcon, MailIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
-import { GoogleLogin } from 'react-google-login'
+import React, { useState } from "react";
+import Head from "next/head";
+import { FcGoogle } from "react-icons/fc";
+import { BsFacebook } from "react-icons/bs";
+import { LockOpenIcon, MailIcon } from "@heroicons/react/solid";
+import Link from "next/link";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { GoogleLogin } from "react-google-login";
+import { setUser, setAccessToken } from "../store/authSlice";
+import { useRouter } from "next/router";
 
 const Login = () => {
-  const [show, setShow] = useState('')
+  const initialFormData = {
+    email: "",
+    password: "",
+  };
+
+  const [show, setShow] = useState("");
+  const [formData, setFormData] = useState(initialFormData);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = { ...formData };
+
+    if (!email || !password) return alert("Please enter all fields");
+
+    axios
+      .post(`api/auth/login`, { email, password })
+      .then((res) => {
+        console.log(res.data);
+        const { user, access_token } = res.data;
+
+        dispatch(setUser(user));
+        dispatch(setAccessToken(access_token));
+
+        localStorage.setItem(
+          "codeverse_userSession",
+          JSON.stringify(access_token)
+        );
+        localStorage.setItem("codeverse_user", JSON.stringify(user));
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err?.response?.data || err);
+        alert(err?.response?.data?.msg || "Something went wrong");
+      });
+  };
 
   return (
     <>
@@ -32,12 +78,17 @@ const Login = () => {
               </button>
             </div>
 
-            <form action="" className="w-full pt-8 m-auto">
+            <form onSubmit={handleSubmit} className="w-full pt-8 m-auto">
               <div className="py-4">
                 <div className="flex h-[40px] ">
                   <input
                     type="text"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
+                    required
+                    autoFocus
                     className="w-full outline-none bg-transparent text-sm text-skin-base"
                   />
                   <MailIcon className=" h-[30px]  text-skin-base" />
@@ -48,8 +99,13 @@ const Login = () => {
               <div className="py-4">
                 <div className="flex h-[40px] ">
                   <input
-                    type={show ? 'text' : 'password'}
+                    type={show ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Enter your password"
+                    required
+                    autoFocus
                     className="w-full outline-none bg-transparent text-sm text-skin-base"
                   />
                   <LockOpenIcon className=" h-[30px] text-skin-base" />
@@ -60,14 +116,22 @@ const Login = () => {
               <div className="flex w-full items-center px-2 mb-2">
                 <input
                   type="checkbox"
-                  placeholder="Enter your password"
+                  id="showPassword"
                   className="outline-none bg-transparent mr-2"
                   onClick={() => setShow(!show)}
                 />
-                <p className="text-skin-base text-sm">Show password</p>
+                <label
+                  className="text-skin-base text-sm"
+                  htmlFor="showPassword"
+                >
+                  Show password
+                </label>
               </div>
 
-              <button className="py-3 w-full bg-skin-primary text-skin-base rounded-2xl">
+              <button
+                type="submit"
+                className="py-3 w-full bg-skin-primary text-skin-base rounded-2xl"
+              >
                 Login
               </button>
             </form>
@@ -86,9 +150,9 @@ const Login = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-Login.authRoute = true
+Login.authRoute = true;
 
-export default Login
+export default Login;

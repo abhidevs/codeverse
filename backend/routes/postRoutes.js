@@ -1,19 +1,23 @@
 const router = require("express").Router();
 const postController = require("../controllers/postController");
 const auth = require("../middleware/auth");
+const getUser = require("../middleware/getUser");
 
-router.route("/").post(auth, postController.createPost).get(auth, postController.getPosts);
+router.post("/", auth, postController.createPost);
+
+router.get("/", getUser, postController.getPosts);
 
 router.get("/discover", auth, postController.getPostsDicover);
 
 router.get("/getsavedposts", auth, postController.getSavedPosts);
 
-router.get("/user/:id", auth, postController.getUserPosts);
+router.get("/user/:id", postController.getUserPosts);
+
+router.get("/:id", postController.getPost);
 
 router
   .route("/:id")
   .patch(auth, postController.updatePost)
-  .get(auth, postController.getPost)
   .delete(auth, postController.deletePost);
 
 router.patch("/:id/save", auth, postController.savePost);

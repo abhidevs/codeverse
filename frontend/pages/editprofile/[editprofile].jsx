@@ -4,8 +4,14 @@ import Head from 'next/head'
 
 import PencilAltIcon from '@heroicons/react/solid/PencilAltIcon'
 import axios from 'axios'
+import { useRouter } from 'next/router'
+import { shallowEqual, useSelector } from 'react-redux'
 
 const EditProfile = () => {
+  const router = useRouter()
+  const { userId } = router.query
+  const { accessToken } = useSelector((state) => state.auth, shallowEqual)
+  console.log(userId)
   const [data, setdata] = useState({
     fullname: '',
     username: '',
@@ -16,6 +22,7 @@ const EditProfile = () => {
     dob: '',
     website: '',
   })
+  const [loding, setLoding] = useState(false)
 
   const setInput = (e) => {
     setdata({
@@ -37,21 +44,24 @@ const EditProfile = () => {
       website,
     } = data
     try {
-      let token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWUxNzU2N2E4NDFlYzg5ODY2MWM5ZSIsImlhdCI6MTY1NDU3MTUwNiwiZXhwIjoxNjU0NjU3OTA2fQ.Ue76_56MxsITcwbNh4KJoXmwujCmJD8uiHg-7_EFTiQ'
+      setLoding(true)
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
       const data = await axios.patch(
-        'http://localhost:5000/api/users/updateuser/629e17567a841ec898661c9e',
+        `http://localhost:5000/api/users/updateuser/${userId}`,
         { fullname, username, email, bio, gender, address, dob, website },
         config,
       )
       console.log(data)
+      setLoding(false)
+      alert('user updated succcesfully')
+      router.push(`/profile/${userId}`)
     } catch (error) {
       console.log(error)
+      setLoding(false)
     }
   }
 
@@ -168,6 +178,9 @@ const EditProfile = () => {
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     >
                       <option value="Male" className="bg-skin-color4">
+                        select
+                      </option>
+                      <option value="Male" className="bg-skin-color4">
                         Male
                       </option>
                       <option value="Female" className="bg-skin-color4">
@@ -231,7 +244,7 @@ const EditProfile = () => {
                     type="submit"
                     className="w-[200px] h-[40px] m-4  bg-skin-primary text-skin-base rounded-2xl"
                   >
-                    Save
+                    {!loding ? 'save' : 'please wait..'}
                   </button>
                 </div>
               </form>
