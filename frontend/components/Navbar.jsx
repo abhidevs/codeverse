@@ -7,15 +7,14 @@ import Link from "next/link";
 import { shallowEqual, useSelector } from "react-redux";
 
 const Navbar = () => {
-  const {
-    user: { avatar },
-  } = useSelector((state) => state.auth, shallowEqual);
+  // const {
+  //   user
+  // } = useSelector((state) => state.auth, shallowEqual);
 
   const [show, setShow] = useState(false);
   const [colorChange, setColorchange] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
-
   const changeNavbarColor = () => {
     if (window.scrollY >= 80) {
       setColorchange(true);
@@ -96,7 +95,7 @@ const Navbar = () => {
                   onClick={() => setShow(!show)}
                 >
                   <Image
-                    src={avatar}
+                    src={user.avatar}
                     alt="profile image"
                     width={180}
                     height={180}

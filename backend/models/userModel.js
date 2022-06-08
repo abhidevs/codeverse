@@ -25,23 +25,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    avatar:{
+    avatar: {
         type: String,
         default: 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
     },
-    role: {type: String, default: 'user'},
-    gender: {type: String, default: ''},
-    mobile: {type: String, default: ''},
-    address: {type: String, default: ''},
-    story: {
-        type: String, 
-        default: '',
-        maxlength: 200
+    coverimage: {
+        type: String,
+        default: 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
     },
-    website: {type: String, default: ''},
-    followers: [{type: mongoose.Types.ObjectId, ref: 'user'}],
-    following: [{type: mongoose.Types.ObjectId, ref: 'user'}],
-    saved: [{type: mongoose.Types.ObjectId, ref: 'user'}]
+    bio: { type: String, default: '' },
+    gender: { type: String, default: '' },
+    address: { type: String, default: '' },
+    dob: { type: String, default: '' },
+    website: { type: String, default: '' },
+    followers: [{ type: mongoose.Types.ObjectId, ref: 'user' }],
+    following: [{ type: mongoose.Types.ObjectId, ref: 'user' }],
+    saved: [{ type: mongoose.Types.ObjectId, ref: 'user' }]
 }, {
     timestamps: true
 })

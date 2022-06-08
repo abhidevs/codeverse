@@ -15,6 +15,7 @@ export default function Home() {
     (state) => state.auth,
     shallowEqual
   );
+  
   const { posts } = useSelector((state) => state.post, shallowEqual);
 
   const dispatch = useDispatch();
