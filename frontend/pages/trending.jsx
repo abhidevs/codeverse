@@ -12,7 +12,7 @@ export default function Trending() {
       </Head>
 
       <div>
-        {userData.map((data, index) => (
+        {/* {userData.map((data, index) => (
           <Post
             key={index}
             name={data.name}
@@ -25,7 +25,7 @@ export default function Trending() {
             swipeImage={data.postImage}
             profileImage={data.profile}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   )

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { FaSearch } from 'react-icons/fa'
 import LodingScreen from '../components/LodingScreen'
 
-export default function search() {
+export default function Search() {
   return (
     <div>
       <Head>

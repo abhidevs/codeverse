@@ -3,14 +3,13 @@ import Post from "../../components/Post";
 import Head from "next/head";
 import Image from "next/image";
 import { BiSend } from "react-icons/bi";
-import { AiFillDelete } from "react-icons/ai";
 import { wrapper } from "../../store/store";
 import axios from "axios";
 import API from "../../api/api";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Comment from "../../components/Comment";
 
-const comment = ({ post }) => {
+export default function DetailedPost({ post }) {
   const [likes, setLikes] = useState(post?.likes);
   const [comments, setComments] = useState(post?.comments);
   const { user, accessToken } = useSelector(
@@ -120,9 +119,7 @@ const comment = ({ post }) => {
       </div>
     </>
   );
-};
-
-export default comment;
+}
 
 export const getServerSideProps = wrapper.getServerSideProps(
   ({ dispatch }) =>
