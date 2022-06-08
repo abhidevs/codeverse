@@ -58,7 +58,7 @@ const postController = {
         features = new APIfeatures(Posts.find(), req.query).paginating();
       }
 
-      const posts = await features.query
+      let posts = await features.query
         .sort("-createdAt")
         .populate("user likes", "avatar username fullname followers")
         .populate({
@@ -68,6 +68,20 @@ const postController = {
             select: "-password",
           },
         });
+
+      if (!posts || posts.length === 0) {
+        features = new APIfeatures(Posts.find(), req.query).paginating();
+        posts = await features.query
+          .sort("-createdAt")
+          .populate("user likes", "avatar username fullname followers")
+          .populate({
+            path: "comments",
+            populate: {
+              path: "user likes",
+              select: "-password",
+            },
+          });
+      }
 
       res.json({
         msg: "Success!",
@@ -157,7 +171,9 @@ const postController = {
         Posts.find({ user: req.params.id }),
         req.query
       ).paginating();
-      const posts = await features.query.sort("-createdAt");
+      const posts = await features.query
+        .sort("-createdAt")
+        .populate("user", "avatar username fullname");
 
       res.json({
         posts,

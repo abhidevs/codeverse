@@ -8,9 +8,11 @@ import {
 } from "@heroicons/react/outline";
 import BottomNavbarLink from "./BottomNavbarLink";
 import { useRouter } from "next/router";
+import { shallowEqual, useSelector } from "react-redux";
 
 const BottomNavbar = () => {
   const router = useRouter();
+  const { user } = useSelector((state) => state.auth, shallowEqual);
 
   useEffect(() => {
     const links = [...document.querySelectorAll("nav ul li a")];
@@ -67,8 +69,8 @@ const BottomNavbar = () => {
         />
         <BottomNavbarLink
           icon={UserCircleIcon}
-          link="/profile"
-          active={router.pathname == "/profile"}
+          link={user ? `/profile/${user?._id}` : ""}
+          active={router.pathname.includes(`/profile`)}
         />
         <BottomNavbarLink
           icon={BookmarkIcon}

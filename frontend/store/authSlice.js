@@ -9,6 +9,7 @@ const initialState = {
     (typeof localStorage !== "undefined" &&
       JSON.parse(localStorage.getItem("codeverse_userSession"))) ||
     "",
+  userPosts: {},
 };
 
 const authSlice = createSlice({
@@ -21,8 +22,32 @@ const authSlice = createSlice({
     setAccessToken: (state, action) => {
       state.accessToken = action.payload;
     },
+    setUserPosts: (state, action) => {
+      state.userPosts = { ...state.userPosts, ...action.payload };
+    },
+    addLikeToUserPost: (state, action) => {
+      const { postId, likeId } = action.payload;
+      state.userPosts[postId].likes.push(likeId);
+    },
+    removeLikeFromUserPost: (state, action) => {
+      const { postId, likeId } = action.payload;
+      const postLikes = state.userPosts[postId].likes.filter(
+        (like) => like !== likeId
+      );
+      state.userPosts[postId].likes = postLikes;
+    },
+    deleteAllUserPosts: (state, action) => {
+      state.userPosts = {};
+    },
   },
 });
 
-export const { setUser, setAccessToken } = authSlice.actions;
+export const {
+  setUser,
+  setAccessToken,
+  setUserPosts,
+  addLikeToUserPost,
+  removeLikeFromUserPost,
+  deleteAllUserPosts,
+} = authSlice.actions;
 export default authSlice.reducer;

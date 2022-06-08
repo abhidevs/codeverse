@@ -28,14 +28,32 @@ const userController = {
   updateUser: async (req, res) => {
     console.log(req.body);
     try {
-      const { fullname, username, email, avatar, coverimage, bio, gender, dob, website } =
-        req.body;
+      const {
+        address,
+        fullname,
+        email,
+        avatar,
+        coverimage,
+        bio,
+        gender,
+        dob,
+        website,
+      } = req.body;
 
-      await Users.findOneAndUpdate(
+      await Users.findByIdAndUpdate(
         req.params.id,
         {
-          fullname, username, email, avatar, coverimage, bio, gender, dob, website
-        }, { new: true }
+          address,
+          fullname,
+          email,
+          avatar,
+          coverimage,
+          bio,
+          gender,
+          dob,
+          website,
+        },
+        { new: true }
       );
 
       res.json({ msg: "Update Success!" });

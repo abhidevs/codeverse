@@ -10,18 +10,118 @@ import Image from "next/image";
 import { useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../firebase";
+import { setPosts } from "../store/postSlice";
+import axios from "axios";
+import API from "../api/api";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 const CreatePost = () => {
-  const [input, setInput] = useState("");
+  const initialState = {
+    content: "",
+    images: [],
+  };
+
+  const [formData, setFormData] = useState(initialState);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [filesLeftForUpload, setFilesLeftForUpload] = useState(0);
+
+  const { accessToken } = useSelector((state) => state.auth, shallowEqual);
+  const dispatch = useDispatch();
 
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
     let codesArray = [];
     sym.forEach((el) => codesArray.push("0x" + el));
     let emoji = String.fromCodePoint(...codesArray);
-    setInput(input + emoji);
+    setFormData({ ...formData, content: formData.content + emoji });
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const uploadImages = (items) => {
+    if (items?.length === 0) return;
+
+    setFormData({ ...formData, images: [] });
+
+    items.forEach((item) => {
+      console.log({ item });
+
+      try {
+        const filename = new Date().getTime() + item.name;
+        const storageRef = ref(storage, `/assets/images/${filename}`);
+
+        uploadBytes(storageRef, item).then((snapshot) => {
+          console.log(`${item.name} file succesfully uploaded`);
+
+          getDownloadURL(snapshot.ref).then((downloadURL) => {
+            let tempFormData = { ...formData };
+            tempFormData.images.push({
+              url: downloadURL,
+            });
+            setFormData(tempFormData);
+            console.log(filesLeftForUpload);
+
+            console.log("before setting " + filesLeftForUpload);
+            setFilesLeftForUpload(filesLeftForUpload - 1);
+          });
+        });
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong");
+      }
+    });
+  };
+
+  const handleAddImages = (e) => {
+    const { files } = e.target;
+    let filesData = [];
+
+    for (let i = 0; i < files.length; i++) {
+      filesData.push(files[i]);
+    }
+
+    console.log(filesData);
+    console.log(filesData.length);
+    setFilesLeftForUpload(filesData.length);
+    uploadImages(filesData);
+  };
+
+  console.log({ loading, filesLeftForUpload });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { content, images } = formData;
+    console.log(filesLeftForUpload);
+    setLoading(true);
+
+    try {
+      const { data } = await axios.post(
+        `${API}/posts/`,
+        { content, images },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const { newPost } = data;
+
+      console.log(data);
+      setLoading(false);
+      alert("post uploaded succcesfully");
+      dispatch(setPosts({ [newPost._id]: newPost }));
+    } catch (error) {
+      console.log(error?.response?.data?.msg || error);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className=" justify-center relative flex w-full lg:mb-5 mb-3">
@@ -50,9 +150,10 @@ const CreatePost = () => {
                 ease-in-out
                 outline-none "
                 rows="3"
+                name="content"
                 placeholder="What’s Happening?"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
+                value={formData.content}
+                onChange={handleChange}
               ></textarea>
 
               <div className="flex justify-start gap-3 my-3 flex-wrap w-full">
@@ -82,10 +183,20 @@ const CreatePost = () => {
                   />
                 )}
 
-                <button className="w-[115px] py-1 flex justify-center bg-skin-primary rounded-[8px]">
+                <label
+                  htmlFor="addImagesBtn"
+                  className="w-[115px] py-1 flex justify-center bg-skin-primary rounded-[8px] cursor-pointer"
+                >
                   <PhotographIcon className="w-[24px] mr-1 " />
                   Photo
-                </button>
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="addImagesBtn"
+                  hidden
+                  onChange={handleAddImages}
+                />
                 <button className="w-[115px] py-1 flex justify-center bg-skin-primary rounded-[8px]">
                   <VideoCameraIcon className="w-[24px] mr-1" />
                   Video
@@ -96,9 +207,18 @@ const CreatePost = () => {
                   Gif
                 </button>
 
-                <button className="w-[115px] py-1  flex justify-center bg-skin-primary rounded-[8px]">
-                  Post
-                  <AiOutlineSend className="w-[24px]  h-auto   ml-1" />
+                <button
+                  onClick={handleSubmit}
+                  className="w-[115px] py-1  flex justify-center bg-skin-primary rounded-[8px]"
+                >
+                  {loading || filesLeftForUpload > 0 ? (
+                    "...Uploading"
+                  ) : (
+                    <>
+                      Post
+                      <AiOutlineSend className="w-[24px]  h-auto   ml-1" />
+                    </>
+                  )}
                 </button>
               </div>
             </div>

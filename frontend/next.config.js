@@ -6,6 +6,8 @@ const nextConfig = {
       "www.business2community.com",
       "media.istockphoto.com",
       "burst.shopifycdn.com",
+      "wallpaperaccess.com",
+      "firebasestorage.googleapis.com",
     ],
   },
 };

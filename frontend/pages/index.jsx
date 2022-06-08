@@ -15,16 +15,18 @@ export default function Home() {
     (state) => state.auth,
     shallowEqual
   );
-  
+
   const { posts } = useSelector((state) => state.post, shallowEqual);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log({ user, posts });
-  }, [user, posts]);
+  // useEffect(() => {
+  //   console.log({ user, posts });
+  // }, [user, posts]);
 
   const fetchPosts = () => {
+    console.log({ user, accessToken });
+
     axios
       .get(`${API}/posts`, {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -60,12 +62,11 @@ export default function Home() {
               name={posts[idx]?.user?.fullname}
               username={posts[idx]?.user?.username}
               description={posts[idx]?.content}
-              liked={posts[idx]?.liked}
-              likedBy={posts[idx]?.likedBy}
               likes={posts[idx]?.likes}
-              likedProfile={posts[idx]?.likdeProfile}
+              comments={posts[idx]?.comments}
               swipeImage={posts[idx]?.images[0].url}
               profileImage={posts[idx].user.avatar}
+              userPost={false}
             />
           );
         })}

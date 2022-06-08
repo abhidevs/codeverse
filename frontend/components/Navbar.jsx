@@ -4,7 +4,15 @@ import { LogoutIcon, PlusIcon, TrendingUpIcon } from "@heroicons/react/outline";
 import { FaSearch } from "react-icons/fa";
 import SidebarLink from "./SidebarLink";
 import Link from "next/link";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import {
+  deleteAllUserPosts,
+  setAccessToken,
+  setUser,
+  setUserPosts,
+} from "../store/authSlice";
+import { useRouter } from "next/router";
+import { deleteAllPosts, setPosts } from "../store/postSlice";
 
 const Navbar = () => {
   // const {
@@ -15,6 +23,9 @@ const Navbar = () => {
   const [colorChange, setColorchange] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const changeNavbarColor = () => {
     if (window.scrollY >= 80) {
       setColorchange(true);
@@ -39,6 +50,17 @@ const Navbar = () => {
     };
   }, [show]);
 
+  const logoutUser = () => {
+    dispatch(setUser(null));
+    dispatch(setAccessToken(""));
+    dispatch(deleteAllUserPosts());
+    dispatch(deleteAllPosts());
+    localStorage.removeItem("codeverse_user");
+    localStorage.removeItem("codeverse_userSession");
+    setShow(false);
+    router.push("/login");
+  };
+
   return (
     <>
       <nav
@@ -55,7 +77,7 @@ const Navbar = () => {
               </div>
             </a>
           </Link>
-          {user && (
+          {/* {user && (
             <>
               <div className="hidden justify-center border-none bg-skin-color7 w-auto rounded-full p-1">
                 <div className="content-center grid text-skin-base bg-skin-color7 ml-3 p-2">
@@ -68,23 +90,30 @@ const Navbar = () => {
                 />
               </div>
             </>
-          )}
+          )} */}
 
           <div
-            className="flex justify-end items-center  w-48 space-x-4 lg:space-x-8 md:space-x-8"
+            className="flex justify-end items-center  w-48 lg:w-64 space-x-4 lg:space-x-8 md:space-x-8"
             ref={ref}
           >
             {user ? (
               <>
                 <Link href="/#">
-                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[34px] h-[34px] lg:w-[36px] lg:h-[36px] md:w-[36px] md:h-[36px]  flex items-center justify-center">
+                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[34px] h-[34px] md:w-[36px] md:h-[36px] lg:w-[36px] lg:h-[36px] flex items-center justify-center">
                     <a>
                       <PlusIcon className="h-5" />
                     </a>
                   </button>
                 </Link>
+                <Link href="/search">
+                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] lg:w-[36px] lg:h-[36px]  hidden lg:flex items-center justify-center">
+                    <a>
+                      <FaSearch className="h-5" />
+                    </a>
+                  </button>
+                </Link>
                 <Link href="/trending">
-                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[36px] h-[36px]  hidden lg:flex items-center justify-center">
+                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] lg:w-[36px] lg:h-[36px]  hidden lg:flex items-center justify-center">
                     <a>
                       <TrendingUpIcon className="h-5" />
                     </a>
@@ -95,7 +124,10 @@ const Navbar = () => {
                   onClick={() => setShow(!show)}
                 >
                   <Image
-                    src={user.avatar}
+                    src={
+                      user.avatar ||
+                      "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+                    }
                     alt="profile image"
                     width={180}
                     height={180}
@@ -121,7 +153,12 @@ const Navbar = () => {
               <div
                 className={`absolute h-auto bg-skin-color7 top-12 lg:top-16 md:top-16 rounded-2xl`}
               >
-                <SidebarLink text="Logout" icon={LogoutIcon} link="/login" />
+                <button
+                  className="w-32 h-12 rounded-lg text-white text-md p-4 flex items-center justify-center gap-2 shadow-lg"
+                  onClick={logoutUser}
+                >
+                  <LogoutIcon className="h-6" /> Logout
+                </button>
               </div>
             )}
           </div>

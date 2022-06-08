@@ -1,69 +1,72 @@
-import Image from 'next/image'
-import React, { useState } from 'react'
-import Head from 'next/head'
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
 
-import PencilAltIcon from '@heroicons/react/solid/PencilAltIcon'
-import axios from 'axios'
-import { useRouter } from 'next/router'
-import { shallowEqual, useSelector } from 'react-redux'
+import PencilAltIcon from "@heroicons/react/solid/PencilAltIcon";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import API from "../../api/api";
+import { setUser } from "../../store/authSlice";
 
 const EditProfile = () => {
-  const router = useRouter()
-  const { userId } = router.query
-  const { accessToken } = useSelector((state) => state.auth, shallowEqual)
-  console.log(userId)
-  const [data, setdata] = useState({
-    fullname: '',
-    username: '',
-    email: '',
-    bio: '',
-    gender: '',
-    address: '',
-    dob: '',
-    website: '',
-  })
-  const [loding, setLoding] = useState(false)
+  const router = useRouter();
+  const { userId } = router.query;
+  const { user, accessToken } = useSelector(
+    (state) => state.auth,
+    shallowEqual
+  );
+  const dispatch = useDispatch();
+  console.log(userId);
 
-  const setInput = (e) => {
-    setdata({
-      ...data,
+  const [formData, setFormData] = useState({
+    fullname: "",
+    username: "",
+    email: "",
+    bio: "",
+    gender: "",
+    address: "",
+    dob: "",
+    website: "",
+  });
+  const [loding, setLoding] = useState(false);
+
+  useEffect(() => {
+    setFormData(user);
+  }, [user]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const {
-      fullname,
-      username,
-      email,
-      bio,
-      gender,
-      address,
-      dob,
-      website,
-    } = data
+    e.preventDefault();
+    const { fullname, username, email, bio, gender, address, dob, website } =
+      formData;
     try {
-      setLoding(true)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-      const data = await axios.patch(
-        `http://localhost:5000/api/users/updateuser/${userId}`,
+      setLoding(true);
+      const { data } = await axios.patch(
+        `${API}/users/updateuser/${userId}`,
         { fullname, username, email, bio, gender, address, dob, website },
-        config,
-      )
-      console.log(data)
-      setLoding(false)
-      alert('user updated succcesfully')
-      router.push(`/profile/${userId}`)
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(data);
+      setLoding(false);
+      alert("user updated succcesfully");
+      dispatch(setUser(formData));
+      router.push(`/profile/${user._id}`);
     } catch (error) {
-      console.log(error)
-      setLoding(false)
+      console.log(error?.response?.data?.msg || "Something went wrong");
+      setLoding(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -78,7 +81,10 @@ const EditProfile = () => {
             <div className=" w-auto max-w-[770px] lg:w-[770px] h-auto  m-2 bg-skin-color4 rounded-2xl">
               <div className="flex items-center justify-center cursor-pointer">
                 <Image
-                  src="/dummyProfileImg.jpg"
+                  src={
+                    user?.coverimage ||
+                    "https://wallpaperaccess.com/full/1712825.jpg"
+                  }
                   alt="profile image"
                   width={850}
                   height={150}
@@ -87,7 +93,10 @@ const EditProfile = () => {
               </div>
               <div className="flex items-center justify-center cursor-pointer">
                 <Image
-                  src="/dummyProfileImg.jpg"
+                  src={
+                    user?.avatar ||
+                    "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+                  }
                   alt="profile image"
                   width={50}
                   height={50}
@@ -108,8 +117,8 @@ const EditProfile = () => {
                     <input
                       type="text"
                       name="fullname"
-                      value={data.fullname}
-                      onChange={setInput}
+                      value={formData.fullname}
+                      onChange={handleChange}
                       placeholder="Cristiano Ronaldo"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
@@ -119,15 +128,21 @@ const EditProfile = () => {
                 </div>
 
                 <div className="py-4">
-                  <h2 className="text-blue-600"> Username </h2>
+                  <h2 className="text-blue-600">
+                    Username{" "}
+                    <small className="text-blue-400">
+                      (Can not update username for now)
+                    </small>
+                  </h2>
                   <div className="flex h-[40px] ">
                     <input
                       type="text"
                       name="username"
-                      value={data.username}
-                      onChange={setInput}
+                      value={formData.username}
+                      onChange={handleChange}
+                      readOnly
                       placeholder="Cristian247"
-                      className="w-full outline-none bg-transparent text-skin-base text-sm"
+                      className="w-full outline-none bg-transparent text-gray-400 text-sm"
                     />
                     <PencilAltIcon className=" h-[20px]  text-skin-base" />
                   </div>
@@ -140,8 +155,8 @@ const EditProfile = () => {
                     <input
                       type="text"
                       name="email"
-                      value={data.email}
-                      onChange={setInput}
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="iamcr7@gmail.com"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
@@ -156,8 +171,8 @@ const EditProfile = () => {
                     <input
                       type="text"
                       name="bio"
-                      value={data.bio}
-                      onChange={setInput}
+                      value={formData.bio}
+                      onChange={handleChange}
                       placeholder="You know who i am"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
@@ -172,12 +187,12 @@ const EditProfile = () => {
                     <select
                       type="select"
                       name="gender"
-                      value={data.gender}
-                      onChange={setInput}
+                      value={formData.gender}
+                      onChange={handleChange}
                       placeholder="Male"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     >
-                      <option value="Male" className="bg-skin-color4">
+                      <option value="select" className="bg-skin-color4">
                         select
                       </option>
                       <option value="Male" className="bg-skin-color4">
@@ -197,8 +212,8 @@ const EditProfile = () => {
                     <input
                       type="text"
                       name="address"
-                      value={data.address}
-                      onChange={setInput}
+                      value={formData.address}
+                      onChange={handleChange}
                       placeholder="Haldia, West Bengal, India"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
@@ -213,8 +228,8 @@ const EditProfile = () => {
                     <input
                       type="tel"
                       name="dob"
-                      value={data.dob}
-                      onChange={setInput}
+                      value={formData.dob}
+                      onChange={handleChange}
                       placeholder="21 December 1999"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
@@ -229,8 +244,8 @@ const EditProfile = () => {
                     <input
                       type="text"
                       name="website"
-                      value={data.website}
-                      onChange={setInput}
+                      value={formData.website}
+                      onChange={handleChange}
                       placeholder="www.backbenchers.com"
                       className="w-full outline-none bg-transparent text-skin-base text-sm"
                     />
@@ -244,7 +259,7 @@ const EditProfile = () => {
                     type="submit"
                     className="w-[200px] h-[40px] m-4  bg-skin-primary text-skin-base rounded-2xl"
                   >
-                    {!loding ? 'save' : 'please wait..'}
+                    {!loding ? "save" : "please wait.."}
                   </button>
                 </div>
               </form>
@@ -253,9 +268,9 @@ const EditProfile = () => {
         </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-EditProfile.profileRoute = true
+EditProfile.profileRoute = true;
 
-export default EditProfile
+export default EditProfile;
