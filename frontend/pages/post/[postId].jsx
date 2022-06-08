@@ -78,6 +78,7 @@ export default function DetailedPost({ post }) {
             post?.images && post?.images?.length && post?.images[0].url
           }
           profileImage={post?.user?.avatar}
+          postedBy={post?.user}
           detailedPost
         />
       </div>
@@ -107,7 +108,7 @@ export default function DetailedPost({ post }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 justify-center h-auto lg:mb-5 mb-3 ">
+      <div className="flex flex-col gap-4 justify-center items-center h-auto lg:mb-5 mb-3 ">
         {comments?.map((comment) => (
           <Comment
             key={comment._id}

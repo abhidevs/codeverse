@@ -31,6 +31,7 @@ const Post = ({
   userPost,
   detailedPost,
   setLikes,
+  postedBy,
 }) => {
   const [show, setShow] = useState(false);
   const [likedByMe, setlikedByMe] = useState(false);
@@ -41,6 +42,7 @@ const Post = ({
     shallowEqual
   );
   const dispatch = useDispatch();
+  // console.log({ postedBy });
 
   useEffect(() => {
     if (!likes || !user || (detailedPost && initialDataLoaded)) return;
@@ -55,8 +57,6 @@ const Post = ({
     else setlikedByMe(false);
     if (detailedPost && !initialDataLoaded) setInitialDataLoaded(true);
   }, [likes]);
-
-  console.log({ likes });
 
   const ref = useRef();
 
@@ -119,7 +119,7 @@ const Post = ({
   return (
     <div className=" justify-center relative flex h-auto lg:mb-5 mb-3">
       <div className="lg:rounded-3xl md:rounded-3xl bg-skin-color4  h-auto w-auto max-w-[770px] lg:w-[770px]">
-        <Link href={`/post/${postId}`}>
+        <Link href={`/profile/${postedBy?._id}`}>
           <a>
             <div className="flex justify-between w-full px-6 pt-6 ">
               <div className="flex w-auto max-w-[280px] justify-between ">
@@ -158,7 +158,11 @@ const Post = ({
                 ) : null}
               </div>
             </div>
+          </a>
+        </Link>
 
+        <Link href={`/post/${postId}`}>
+          <a>
             <div className="flex justify-center w-full text-left px-6 py-4 ">
               <p className="w-full text-sm">{description}</p>
             </div>

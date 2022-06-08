@@ -20,7 +20,7 @@ export default async function (req, res) {
       });
 
       res.setHeader("Set-Cookie", serialised);
-      console.log(data);
+      // console.log(data);
       res.status(200).json(data);
     })
     .catch((err) => {

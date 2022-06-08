@@ -17,7 +17,7 @@ const EditProfile = () => {
     shallowEqual
   );
   const dispatch = useDispatch();
-  console.log(userId);
+  // console.log(userId);
 
   const [formData, setFormData] = useState({
     fullname: "",
@@ -57,7 +57,8 @@ const EditProfile = () => {
           },
         }
       );
-      console.log(data);
+      
+      // console.log(data);
       setLoding(false);
       alert("user updated succcesfully");
       dispatch(setUser(formData));
