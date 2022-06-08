@@ -17,6 +17,9 @@ app.use(cookieParser());
 connectDb();
 
 // Routes
+app.get("/api", (req, res) => {
+  res.send("Welcome to codeverse API");
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);

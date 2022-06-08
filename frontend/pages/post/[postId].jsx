@@ -3,14 +3,13 @@ import Post from "../../components/Post";
 import Head from "next/head";
 import Image from "next/image";
 import { BiSend } from "react-icons/bi";
-import { AiFillDelete } from "react-icons/ai";
 import { wrapper } from "../../store/store";
 import axios from "axios";
 import API from "../../api/api";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Comment from "../../components/Comment";
 
-const comment = ({ post }) => {
+export default function DetailedPost({ post }) {
   const [likes, setLikes] = useState(post?.likes);
   const [comments, setComments] = useState(post?.comments);
   const { user, accessToken } = useSelector(
@@ -20,7 +19,7 @@ const comment = ({ post }) => {
   const [commentInput, setCommentInput] = useState("");
 
   const dispatch = useDispatch();
-  console.log(post);
+  // console.log(post);
 
   const addComment = async () => {
     if (!commentInput) return;
@@ -62,7 +61,7 @@ const comment = ({ post }) => {
   return (
     <>
       <Head>
-        <title>post?.content | Codeverse</title>
+        <title>{post?.content || "Not Found"} | Codeverse</title>
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -111,6 +110,7 @@ const comment = ({ post }) => {
       <div className="flex flex-col gap-4 justify-center h-auto lg:mb-5 mb-3 ">
         {comments?.map((comment) => (
           <Comment
+            key={comment._id}
             profileImage={comment?.user?.avatar}
             fullname={comment?.user?.fullname}
             username={comment?.user?.username}
@@ -120,9 +120,7 @@ const comment = ({ post }) => {
       </div>
     </>
   );
-};
-
-export default comment;
+}
 
 export const getServerSideProps = wrapper.getServerSideProps(
   ({ dispatch }) =>

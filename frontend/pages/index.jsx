@@ -25,7 +25,7 @@ export default function Home() {
   // }, [user, posts]);
 
   const fetchPosts = () => {
-    console.log({ user, accessToken });
+    // console.log({ user, accessToken });
 
     axios
       .get(`${API}/posts`, {

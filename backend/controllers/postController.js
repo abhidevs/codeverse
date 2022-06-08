@@ -130,7 +130,7 @@ const postController = {
             },
           });
       }
-      console.log(posts[1]);
+
       res.json({
         msg: "Success!",
         result: posts.length,

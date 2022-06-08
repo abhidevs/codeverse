@@ -57,7 +57,7 @@ export default function Trending() {
             profileImage={indx.user.avatar}
             userPost={false}
           />
-        ))}
+        ))} */}
       </div>
     </>
   )
