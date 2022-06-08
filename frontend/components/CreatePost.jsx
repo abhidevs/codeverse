@@ -3,102 +3,102 @@ import {
   PhotographIcon,
   PlayIcon,
   VideoCameraIcon,
-} from "@heroicons/react/outline";
-import { AiOutlineSend } from "react-icons/ai";
-import { FaRegKeyboard } from "react-icons/fa";
-import Image from "next/image";
-import { useState } from "react";
-import "emoji-mart/css/emoji-mart.css";
-import { Picker } from "emoji-mart";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../firebase";
-import { setPosts } from "../store/postSlice";
-import axios from "axios";
-import API from "../api/api";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+} from '@heroicons/react/outline'
+import { AiOutlineSend } from 'react-icons/ai'
+import { FaRegKeyboard } from 'react-icons/fa'
+import Image from 'next/image'
+import { useState } from 'react'
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { storage } from '../firebase'
+import { setPosts } from '../store/postSlice'
+import axios from 'axios'
+import API from '../api/api'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 const CreatePost = () => {
   const initialState = {
-    content: "",
+    content: '',
     images: [],
-  };
+  }
 
-  const [formData, setFormData] = useState(initialState);
-  const [showEmojis, setShowEmojis] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [filesLeftForUpload, setFilesLeftForUpload] = useState(0);
+  const [formData, setFormData] = useState(initialState)
+  const [showEmojis, setShowEmojis] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [filesLeftForUpload, setFilesLeftForUpload] = useState(0)
 
-  const { accessToken } = useSelector((state) => state.auth, shallowEqual);
-  const dispatch = useDispatch();
+  const { user, accessToken } = useSelector((state) => state.auth, shallowEqual)
+  const dispatch = useDispatch()
 
   const addEmoji = (e) => {
-    let sym = e.unified.split("-");
-    let codesArray = [];
-    sym.forEach((el) => codesArray.push("0x" + el));
-    let emoji = String.fromCodePoint(...codesArray);
-    setFormData({ ...formData, content: formData.content + emoji });
-  };
+    let sym = e.unified.split('-')
+    let codesArray = []
+    sym.forEach((el) => codesArray.push('0x' + el))
+    let emoji = String.fromCodePoint(...codesArray)
+    setFormData({ ...formData, content: formData.content + emoji })
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   const uploadImages = (items) => {
-    if (items?.length === 0) return;
+    if (items?.length === 0) return
 
-    setFormData({ ...formData, images: [] });
+    setFormData({ ...formData, images: [] })
 
     items.forEach((item) => {
-      console.log({ item });
+      console.log({ item })
 
       try {
-        const filename = new Date().getTime() + item.name;
-        const storageRef = ref(storage, `/assets/images/${filename}`);
+        const filename = new Date().getTime() + item.name
+        const storageRef = ref(storage, `/assets/images/${filename}`)
 
         uploadBytes(storageRef, item).then((snapshot) => {
-          console.log(`${item.name} file succesfully uploaded`);
+          console.log(`${item.name} file succesfully uploaded`)
 
           getDownloadURL(snapshot.ref).then((downloadURL) => {
-            let tempFormData = { ...formData };
+            let tempFormData = { ...formData }
             tempFormData.images.push({
               url: downloadURL,
-            });
-            setFormData(tempFormData);
-            console.log(filesLeftForUpload);
+            })
+            setFormData(tempFormData)
+            console.log(filesLeftForUpload)
 
-            console.log("before setting " + filesLeftForUpload);
-            setFilesLeftForUpload(filesLeftForUpload - 1);
-          });
-        });
+            console.log('before setting ' + filesLeftForUpload)
+            setFilesLeftForUpload(filesLeftForUpload - 1)
+          })
+        })
       } catch (error) {
-        console.log(error);
-        alert("Something went wrong");
+        console.log(error)
+        alert('Something went wrong')
       }
-    });
-  };
+    })
+  }
 
   const handleAddImages = (e) => {
-    const { files } = e.target;
-    let filesData = [];
+    const { files } = e.target
+    let filesData = []
 
     for (let i = 0; i < files.length; i++) {
-      filesData.push(files[i]);
+      filesData.push(files[i])
     }
 
-    console.log(filesData);
-    console.log(filesData.length);
-    setFilesLeftForUpload(filesData.length);
-    uploadImages(filesData);
-  };
+    console.log(filesData)
+    console.log(filesData.length)
+    setFilesLeftForUpload(filesData.length)
+    uploadImages(filesData)
+  }
 
-  console.log({ loading, filesLeftForUpload });
+  console.log({ loading, filesLeftForUpload })
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { content, images } = formData;
-    console.log(filesLeftForUpload);
-    setLoading(true);
+    e.preventDefault()
+    const { content, images } = formData
+    console.log(filesLeftForUpload)
+    setLoading(true)
 
     try {
       const { data } = await axios.post(
@@ -108,19 +108,19 @@ const CreatePost = () => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
-      );
-      const { newPost } = data;
+        },
+      )
+      const { newPost } = data
 
-      console.log(data);
-      setLoading(false);
-      alert("post uploaded succcesfully");
-      dispatch(setPosts({ [newPost._id]: newPost }));
+      console.log(data)
+      setLoading(false)
+      alert('post uploaded succcesfully')
+      dispatch(setPosts({ [newPost._id]: newPost }))
     } catch (error) {
-      console.log(error?.response?.data?.msg || error);
-      setLoading(false);
+      console.log(error?.response?.data?.msg || error)
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <>
@@ -129,7 +129,10 @@ const CreatePost = () => {
           <div className="flex w-full px-6 py-4 ">
             <div className="flex items-center justify-center w-14 h-14 p-0 cursor-pointer mr-2">
               <Image
-                src="/dummyProfileImg.jpg"
+                src={
+                  user?.avatar ||
+                  'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
+                }
                 width={180}
                 height={180}
                 className="rounded-full object-cover"
@@ -174,11 +177,11 @@ const CreatePost = () => {
                   <Picker
                     darkMode="true"
                     onSelect={addEmoji}
-                    theme={"dark"}
+                    theme={'dark'}
                     style={{
-                      width: "100%",
-                      background: "#232226",
-                      border: "none",
+                      width: '100%',
+                      background: '#232226',
+                      border: 'none',
                     }}
                   />
                 )}
@@ -212,7 +215,7 @@ const CreatePost = () => {
                   className="w-[115px] py-1  flex justify-center bg-skin-primary rounded-[8px]"
                 >
                   {loading || filesLeftForUpload > 0 ? (
-                    "...Uploading"
+                    '...Uploading'
                   ) : (
                     <>
                       Post
@@ -226,7 +229,7 @@ const CreatePost = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CreatePost;
+export default CreatePost

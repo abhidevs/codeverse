@@ -93,34 +93,34 @@ const Navbar = () => {
           )} */}
 
           <div
-            className="flex justify-end items-center  w-48 lg:w-64 space-x-4 lg:space-x-8 md:space-x-8"
+            className="flex justify-end items-center w-48 lg:w-full space-x-4 lg:space-x-8 md:space-x-8"
             ref={ref}
           >
             {user ? (
               <>
-                <Link href="/#">
-                  <button className=" rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300  w-[34px] h-[34px] md:w-[36px] md:h-[36px] lg:w-[36px] lg:h-[36px] flex items-center justify-center">
+              <Link href="/#">
                     <a>
+                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] lg:w-[36px] lg:h-[36px]  hidden lg:flex items-center justify-center">
                       <PlusIcon className="h-5" />
-                    </a>
                   </button>
+                    </a>
                 </Link>
                 <Link href="/search">
-                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] lg:w-[36px] lg:h-[36px]  hidden lg:flex items-center justify-center">
                     <a>
-                      <FaSearch className="h-5" />
-                    </a>
+                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] md:w-[36px] md:h-[36px] lg:w-[36px] lg:h-[36px] hidden lg:flex items-center justify-center">
+                      <FaSearch className="h-5 m-auto" />
                   </button>
+                    </a>
                 </Link>
                 <Link href="/trending">
-                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] lg:w-[36px] lg:h-[36px]  hidden lg:flex items-center justify-center">
                     <a>
+                  <button className="rounded-full bg-skin-color7 hover:bg-skin-primary text-skin-base p-1 ease-in-out duration-300 w-[34px] h-[34px] lg:w-[36px] lg:h-[36px]  hidden lg:flex items-center justify-center">
                       <TrendingUpIcon className="h-5" />
-                    </a>
                   </button>
+                    </a>
                 </Link>
                 <div
-                  className="flex items-center justify-center lg:w-[44px] lg:h-[44px] w-[38px] h-[38px] cursor-pointer"
+                  className="flex items-center justify-center w-[34px] h-[34px] lg:w-[36px] lg:h-[36px] cursor-pointer"
                   onClick={() => setShow(!show)}
                 >
                   <Image
