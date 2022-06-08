@@ -110,6 +110,7 @@ export default function DetailedPost({ post }) {
       <div className="flex flex-col gap-4 justify-center h-auto lg:mb-5 mb-3 ">
         {comments?.map((comment) => (
           <Comment
+            key={comment._id}
             profileImage={comment?.user?.avatar}
             fullname={comment?.user?.fullname}
             username={comment?.user?.username}
