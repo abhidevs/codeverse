@@ -19,7 +19,7 @@ export default function DetailedPost({ post }) {
   const [commentInput, setCommentInput] = useState("");
 
   const dispatch = useDispatch();
-  console.log(post);
+  // console.log(post);
 
   const addComment = async () => {
     if (!commentInput) return;
@@ -61,7 +61,7 @@ export default function DetailedPost({ post }) {
   return (
     <>
       <Head>
-        <title>post?.content | Codeverse</title>
+        <title>{post?.content || "Not Found"} | Codeverse</title>
         <meta name="description" content="Social media for programmers" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
