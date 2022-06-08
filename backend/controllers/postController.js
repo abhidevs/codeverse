@@ -59,7 +59,7 @@ const postController = {
       }
 
       let posts = await features.query
-        .sort("-createdAt")
+        .sort("-likes")
         .populate("user likes", "avatar username fullname followers")
         .populate({
           path: "comments",
@@ -82,7 +82,7 @@ const postController = {
             },
           });
       }
-
+      console.log(posts[1]);
       res.json({
         msg: "Success!",
         result: posts.length,
