@@ -4,7 +4,9 @@ const userController = {
   searchUser: async (req, res) => {
     try {
       const users = await Users.find({
-        username: { $regex: req.query.username },
+        username: { $regex: req.query.search },
+        name: { $regex: req.query.search, $options: "i" },
+        email: { $regex: req.query.search, $options: "i" },
       })
         .limit(10)
         .select("fullname username avatar email");
@@ -20,6 +22,7 @@ const userController = {
         .select("-password")
         .populate("followers following", "-password");
       if (!user) return res.status(400).json({ msg: "User does not exist." });
+      console.log(user);
       res.json({ user });
     } catch (err) {
       return res.status(500).json({ msg: err.message });

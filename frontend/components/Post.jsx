@@ -43,7 +43,7 @@ const Post = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!likes || (detailedPost && initialDataLoaded)) return;
+    if (!likes || !user || (detailedPost && initialDataLoaded)) return;
 
     let findMyLike;
 
