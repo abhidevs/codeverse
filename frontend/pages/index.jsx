@@ -45,7 +45,7 @@ export default function Home() {
   }, [user, accessToken]);
 
   return (
-    <div>
+    <>
       <Head>
         <title>Home | Codeverse</title>
         <meta name="description" content="Social media for programmers" />
@@ -71,6 +71,6 @@ export default function Home() {
           );
         })}
       </div>
-    </div>
+    </>
   );
 }

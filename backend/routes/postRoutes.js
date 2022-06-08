@@ -6,6 +6,7 @@ const getUser = require("../middleware/getUser");
 router.post("/", auth, postController.createPost);
 
 router.get("/", getUser, postController.getPosts);
+router.get("/trends", getUser, postController.trendPosts);
 
 router.get("/discover", auth, postController.getPostsDicover);
 

@@ -59,6 +59,54 @@ const postController = {
       }
 
       let posts = await features.query
+        .sort("-createdAt")
+        .populate("user likes", "avatar username fullname followers")
+        .populate({
+          path: "comments",
+          populate: {
+            path: "user likes",
+            select: "-password",
+          },
+        });
+
+      if (!posts || posts.length === 0) {
+        features = new APIfeatures(Posts.find(), req.query).paginating();
+        posts = await features.query
+          .sort("-createdAt")
+          .populate("user likes", "avatar username fullname followers")
+          .populate({
+            path: "comments",
+            populate: {
+              path: "user likes",
+              select: "-password",
+            },
+          });
+      }
+      console.log(posts[1]);
+      res.json({
+        msg: "Success!",
+        result: posts.length,
+        posts,
+      });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  trendPosts: async (req, res) => {
+    try {
+      let features;
+      if (req.user) {
+        features = new APIfeatures(
+          Posts.find({
+            user: [...req.user.following, req.user._id],
+          }),
+          req.query
+        ).paginating();
+      } else {
+        features = new APIfeatures(Posts.find(), req.query).paginating();
+      }
+
+      let posts = await features.query
         .sort("-likes")
         .populate("user likes", "avatar username fullname followers")
         .populate({
