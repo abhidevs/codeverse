@@ -40,7 +40,7 @@ const Profile = () => {
         },
       });
 
-      console.log(data.user);
+      // console.log(data.user);
       if (user && user._id === data.user._id) dispatch(setUser(data.user));
       else setProfile(data.user);
       setLoding(false);
@@ -64,7 +64,7 @@ const Profile = () => {
     }
   };
 
-  console.log({ userPosts });
+  // console.log({ userPosts });
 
   useEffect(() => {
     if (!userId) return;
@@ -217,8 +217,9 @@ const Profile = () => {
             description={posts[idx]?.content}
             likes={posts[idx]?.likes}
             comments={posts[idx]?.comments}
-            swipeImage={posts[idx]?.images[0].url}
-            profileImage={posts[idx].user.avatar}
+            swipeImage={posts[idx]?.images[0]?.url}
+            profileImage={posts[idx]?.user?.avatar}
+            postedBy={posts[idx]?.user}
             userPost={true}
           />
         ))}

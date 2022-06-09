@@ -25,7 +25,7 @@ export default function Search() {
         },
       });
 
-      console.log(data.users);
+      // console.log(data.users);
       setSearchData(data.users);
       setLoding(false);
     } catch (error) {

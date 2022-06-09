@@ -20,10 +20,6 @@ export default function Home() {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log({ user, posts });
-  // }, [user, posts]);
-
   const fetchPosts = () => {
     // console.log({ user, accessToken });
 
@@ -66,6 +62,7 @@ export default function Home() {
               comments={posts[idx]?.comments}
               swipeImage={posts[idx]?.images[0].url}
               profileImage={posts[idx].user.avatar}
+              postedBy={posts[idx]?.user}
               userPost={false}
             />
           );

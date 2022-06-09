@@ -36,7 +36,7 @@ const Login = () => {
     axios
       .post(`api/auth/login`, { email, password })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const { user, access_token } = res.data;
 
         dispatch(setUser(user));
