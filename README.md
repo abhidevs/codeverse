@@ -14,7 +14,7 @@ run this command on your terminal or you can download this repository as zip.
 Then, open the terminal or cmd in the root directory of this project and then go through along the process explained below
 
 ### Setup frontend
-Frontend is made with NextJs (A production ready ReactJs framework).
+Frontend is made with NextJs (A production ready ReactJs framework). <br>
 Get into the frontend folder, run `cd frontend` in terminal.
 
 ##### Download necessary dependencies
@@ -28,7 +28,7 @@ npm run dev
 ```
 
 ### Setup backend
-Backend is made with Nodejs
+Backend is made with Nodejs. <br>
 Get into the backend folder, run `cd backend` in terminal.
 
 ##### Download necessary dependencies
