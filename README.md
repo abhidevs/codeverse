@@ -5,9 +5,9 @@ Social media for programmers
 Make sure nodejs is installed in your machine , it's needed in order to setup and run the project.
 
 ### Setup
-Clone the repository to your local machine.
+Fork this repsitory and clone it to your local machine.
 ```
-git clone https://github.com/abhidevs/exptracker.git
+git clone repository_url
 ```
 run this command on your terminal or you can download this repository as zip.
 
